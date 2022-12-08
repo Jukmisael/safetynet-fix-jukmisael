@@ -2,12 +2,13 @@
 
 ## Highlights
 
--Added Hybrid support for Riru and Zygisk
--Added support for hiding modifications in Init.rc and USB Debugging
--Trying to hide addon.d not to show "Custom Rom"
--Mount filesystem as RW to rename addon.dde improvements
-**Some modifications in Init.rc can not be hidden, this is a problem with the ROM
--Fix JsonUpdate Module files
+- Added Hybrid support for Riru and Zygisk
+- Added support for hiding modifications in Init.rc and USB Debugging
+- Trying to hide addon.d not to show "Custom Rom"
+- Mount filesystem as RW to rename addon.dde improvements
+- Fix JsonUpdate Module files
+
+- Some modifications in Init.rc can not be hidden, this is a problem with the ROM
 
 ---
 
