@@ -1,6 +1,8 @@
 #!/system/bin/sh
 # Conditional MagiskHide properties
 
+mount -o remount,rw /
+
 maybe_set_prop() {
     local prop="$1"
     local contains="$2"
@@ -65,6 +67,7 @@ fi
 
 # Change Permission of addon.d
 chmod 0700 /system/addon.d
+mv /system/addon.d /system/addon.dd
 
 #Hide/Disable USB/ADB Debugging
 setprop sys.usb.state mtp,adb
@@ -175,3 +178,4 @@ resetprop --file "$MAGISKDIR/.magisk/hide-userdebug.prop"
     done
 }&
 
+mount -o remount,ro /
