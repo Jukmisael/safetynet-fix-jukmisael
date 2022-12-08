@@ -1,6 +1,6 @@
 {
-    "version": "v2.3.1",
-    "versionCode": 20301,
-    "zipUrl": "https://github.com/kdrag0n/safetynet-fix/releases/download/v2.3.1/safetynet-fix-v2.3.1.zip",
-    "changelog": "https://raw.githubusercontent.com/kdrag0n/safetynet-fix/master/CHANGELOG.md"
+    "version": "v2.3.1.02",
+    "versionCode": 2030102,
+    "zipUrl": "https://github.com/Jukmisael/safetynet-fix-jukmisael/releases/download/Alpha/safetynetfix-jukmisael-v1.3.1.02.zip",
+    "changelog": "https://raw.githubusercontent.com/Jukmisael/safetynet-fix-jukmisael/myfix/CHANGELOG.md"
 }

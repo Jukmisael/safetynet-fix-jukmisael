@@ -1,17 +1,12 @@
-# v2.3.1
+# v2.3.1.02 modded Jukmisael
 
 ## Highlights
 
-- Fixed fingerprint on OxygenOS/ColorOS 12 (@osm0sis)
-- Support for Magisk 24+ module updates (@benjibobs)
-- Restored support for Android 7
-
-## Other changes
-
-- Spoofed OnePlus OEM unlock status for futureproofing (@osm0sis)
-- Minor code improvements
-
-**This version only supports Zygisk (Magisk 24 and newer).**
+-Added Hybrid support for Riru and Zygisk
+-Added support for hiding modifications in Init.rc and USB Debugging
+-Trying to hide addon.d not to show "Custom Rom"
+-Mount filesystem as RW to rename addon.dde improvements
+**Some modifications in Init.rc can not be hidden, this is a problem with the ROM
 
 ---
 
