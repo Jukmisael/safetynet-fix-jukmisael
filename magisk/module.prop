@@ -1,6 +1,6 @@
 id=safetynet-fix-jukmisael
 name=Universal SafetyNet Fix - Jukmisael
 version=v2.3.1.02
-versionCode=2030101
+versionCode=2030102
 author=kdrag0n moddedby jukmisael
 description=A universal fix for SafetyNet and Play Integrity API on Android 8–13 devices with hardware attestation and unlocked bootloaders.
