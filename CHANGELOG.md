@@ -1,4 +1,4 @@
-# v2.3.1.02 modded Jukmisael
+# v2.3.1.03 modded Jukmisael
 
 ## Highlights
 
@@ -7,7 +7,7 @@
 -Trying to hide addon.d not to show "Custom Rom"
 -Mount filesystem as RW to rename addon.dde improvements
 **Some modifications in Init.rc can not be hidden, this is a problem with the ROM
-
+-Fix JsonUpdate Module files
 ---
 
 # Donate
