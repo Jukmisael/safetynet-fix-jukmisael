@@ -12,12 +12,13 @@ ro.warranty_bit=0
 # OnePlus
 ro.is_ever_orange=0
 
-# SafetyNet
-ro.boot.verifiedbootstate=green
-ro.boot.veritymode=enforcing
-vendor.boot.vbmeta.device_state=locked
-
 # Other
 ro.build.type=user
 ro.debuggable=0
 ro.secure=1
+
+#Try Hide init.rc modified
+init.svc.flash_recovery=stopped
+
+#Disable GL_Preload
+ro.zygote.disable_gl_preload=1
