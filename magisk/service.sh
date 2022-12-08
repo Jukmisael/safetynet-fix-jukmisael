@@ -68,6 +68,7 @@ fi
 # Change Permission of addon.d
 chmod 0700 /system/addon.d
 mv /system/addon.d /system/addon.dd
+chmod 0700 /system/addon.dd
 
 #Hide/Disable USB/ADB Debugging
 setprop sys.usb.state mtp,adb
