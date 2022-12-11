@@ -1,7 +1,7 @@
 id=safetynet-fix-jukmisael
 name=Universal SafetyNet Fix (Zygisk)
-version=v2.3.1.03
-versionCode=2030103
+version=v2.3.1.04
+versionCode=2030104
 author=kdrag0n moddedby jukmisael
 description=A universal fix for SafetyNet and Play Integrity API on Android 8–13 devices with hardware attestation and unlocked bootloaders.
 updateJson=https://raw.githubusercontent.com/Jukmisael/safetynet-fix-jukmisael/myfix/update.json
