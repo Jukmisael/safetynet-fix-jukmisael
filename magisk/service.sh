@@ -1,5 +1,9 @@
 #!/system/bin/sh
 
+if [ -f "$MODDIR/debug_log.txt" ]; then
+    logcat USNFbyJukmisael:* *:S >"$MODDIR/debug_log.txt" &
+fi
+
 # Function Props #
 maybe_set_prop() {
     local prop="$1"
