@@ -58,7 +58,10 @@ debug_mode=1
 if [[ "$build_mode" == "release" ]]; then
     debug_mode=0
 fi
-HOME/code/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
+
+$HOME/code/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$src_dir/zygisk" NDK_APPLICATION_MK=./Application.mk APP_BUILD_SCRIPT=./Android.mk
+
+$HOME/code/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
 popd
 
 pushd java
@@ -66,6 +69,7 @@ pushd java
 ./gradlew assembleRelease
 popd
 
+pushd "$src_dir"
 mkdir -p magisk/zygisk
 for arch in arm64-v8a armeabi-v7a x86 x86_64
 do
