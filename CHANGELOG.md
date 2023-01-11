@@ -7,11 +7,6 @@
 ## Highlights
 
 - Organization of the services.sh
-
-# v2.3.1.03 mod by Jukmisael
-
-## Highlights
-
 - Added Hybrid support for Riru and Zygisk
 - Added support for hiding modifications in Init.rc and USB Debugging
 - Trying to hide addon.d not to show "Custom Rom"
