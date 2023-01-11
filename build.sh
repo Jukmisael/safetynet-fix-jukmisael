@@ -29,6 +29,15 @@ chmod +x ./gradlew
 
 popd
 
+pushd "$src_dir/java_module"
+
+rm -fr out
+chmod +x ./gradlew
+
+./gradlew "assemble$build_mode"
+
+popd
+
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
 
 unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" classes.dex
@@ -43,7 +52,7 @@ set -euo pipefail
 
 build_mode="${1:-release}"
 
-pushd zygisk/module
+pushd "$src_dir/zygisk"
 rm -fr libs
 debug_mode=1
 if [[ "$build_mode" == "release" ]]; then
