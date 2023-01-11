@@ -23,6 +23,7 @@ cd "$tmp_dir"
 pushd "$src_dir/riru"
 
 rm -fr out
+chmod +x ./gradlew
 
 ./gradlew "assemble$build_mode"
 
