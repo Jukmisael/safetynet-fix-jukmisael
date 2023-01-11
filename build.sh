@@ -52,14 +52,14 @@ set -euo pipefail
 
 build_mode="${1:-release}"
 
-pushd "$src_dir/zygisk/module/jni"
+pushd "$src_dir/zygisk/module"
 rm -fr libs
 debug_mode=1
 if [[ "$build_mode" == "release" ]]; then
     debug_mode=0
 fi
 
-/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$src_dir/zygisk/module/jni" NDK_APPLICATION_MK=./Application.mk APP_BUILD_SCRIPT=./Android.mk
+/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="./" NDK_APPLICATION_MK=./Application.mk APP_BUILD_SCRIPT=./Android.mk
 
 /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
 popd
