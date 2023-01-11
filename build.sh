@@ -30,6 +30,7 @@ chmod +x ./gradlew
 popd
 
 pushd "$src_dir/java_module"
+chmod +x ./gradlew
 
 # Must always be release due to R8 requirement
 
