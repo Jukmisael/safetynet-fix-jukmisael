@@ -60,7 +60,7 @@ if [[ "$build_mode" == "release" ]]; then
 fi
 git clone --recurse-submodules https://github.com/topjohnwu/Magisk.git
 
-/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="./" NDK_APPLICATION_MK=./Application.mk APP_BUILD_SCRIPT=./Android.mk
+/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="./" NDK_APPLICATION_MK="./jni/Application.mk" APP_BUILD_SCRIPT="./jni/Android.mk"
 
 /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
 popd
@@ -68,7 +68,6 @@ popd
 #pushd "$src_dir/java"
 # Must always be release due to R8 requirement
 #chmod +x ./gradlew
-#./gradlew assembleRelease
 #popd
 
 pushd "$src_dir"
