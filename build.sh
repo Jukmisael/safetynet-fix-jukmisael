@@ -43,7 +43,35 @@ unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" class
 
 sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
 
-rm -f "$src_dir/safetynet-fix.zip"
+rm -f "$src_dir/safetynet-fix-riru.zip"
 
-zip -r9 "$src_dir/safetynet-fix.zip" .
+zip -r9 "$src_dir/safetynet-fix-riru.zip" .
+    
+
+pushd "$src_dir/zygisk"
+
+rm -fr out
+chmod +x ./gradlew
+
+./gradlew "assemble$build_mode"
+
+popd
+
+pushd "$src_dir/java_module
+
+# Must always be release due to R8 requirement
+
+./gradlew assembleRelease
+
+popd
+
+unzip "$src_dir/zygisk/out/safetynet-fix-"*.zip
+
+unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" classes.dex
+
+sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
+
+rm -f "$src_dir/safetynet-fix-zygisk.zip"
+
+zip -r9 "$src_dir/safetynet-fix-zygisk.zip" .
     
