@@ -64,13 +64,14 @@ fi
 /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
 popd
 
-pushd java
+#pushd "$src_dir/java"
 # Must always be release due to R8 requirement
-./gradlew assembleRelease
-popd
+#chmod +x ./gradlew
+#./gradlew assembleRelease
+#popd
 
 pushd "$src_dir"
-mkdir -p magisk/zygisk
+mkdir -p "$src_dir/magisk/zygisk"
 for arch in arm64-v8a armeabi-v7a x86 x86_64
 do
     cp "zygisk/module/libs/$arch/libsafetynetfix.so" "magisk/zygisk/$arch.so"
@@ -79,6 +80,6 @@ done
 pushd "$src_dir/magisk"
 version="$(grep '^version=' module.prop  | cut -d= -f2)"
 rm -f "../safetynet-fix-$version.zip" classes.dex
-unzip "../java/app/build/outputs/apk/release/app-release.apk" "classes.dex"
+unzip "../java_module/app/build/outputs/apk/release/app-release.apk" "classes.dex"
 zip -r9 "../safetynet-fix-zygisk.zip" .
 popd
