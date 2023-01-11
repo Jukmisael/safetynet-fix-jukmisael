@@ -40,6 +40,7 @@ jobs:
       - name: Build release
         run: |
           chmod 777 ./build.sh
+          chmod +x ./build.sh
           ./build.sh
           mkdir ./upload
           unzip -o ./safetynet-fix.zip -d ./upload

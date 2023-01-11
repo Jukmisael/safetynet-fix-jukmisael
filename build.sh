@@ -36,12 +36,13 @@ pushd "$src_dir/java_module"
 
 popd
 
-unzip "$src_dir/riru/out/safetynet-fix-jukmisael"*.zip
+unzip "$src_dir/riru/out/safetynet-fix-"*.zip
 
 unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" classes.dex
 
 sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
 
-rm -f "$src_dir/safetynet-fix-jukmisael.zip"
+rm -f "$src_dir/safetynet-fix.zip"
 
-zip -r9 "$src_dir/safetynet-fix-jukmisael.zip" .
+zip -r9 "$src_dir/safetynet-fix.zip" .
+    
