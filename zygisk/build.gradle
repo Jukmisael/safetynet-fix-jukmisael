@@ -13,11 +13,9 @@ buildscript {
 }
 
 ext {
-    compileSdkVersion 30
+    compileSdkVersion = 30
     minSdkVersion = 23
     targetSdkVersion = 30
-
-    outDir = file("$rootDir/out")
 }
 
 task clean(type: Delete) {
