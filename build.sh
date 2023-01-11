@@ -73,4 +73,4 @@ sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
 
 rm -f "$src_dir/safetynet-fix-zygisk.zip"
 
-zip -r9 "$src_dir/safetynet-fix-zygisk.zip".
+zip -r9 "$src_dir/safetynet-fix-zygisk.zip" .
