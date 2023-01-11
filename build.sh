@@ -59,9 +59,9 @@ if [[ "$build_mode" == "release" ]]; then
     debug_mode=0
 fi
 
-$HOME/code/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$src_dir/zygisk" NDK_APPLICATION_MK=./Application.mk APP_BUILD_SCRIPT=./Android.mk
+/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$src_dir/zygisk" NDK_APPLICATION_MK=./Application.mk APP_BUILD_SCRIPT=./Android.mk
 
-$HOME/code/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
+/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
 popd
 
 pushd java
