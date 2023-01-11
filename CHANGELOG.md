@@ -1,8 +1,19 @@
-# v2.3.1.04 mod by Jukmisael
+# v2.3.1.05 modo by Jukmisael
+## Highlights
 
+- Add Sepolicy rule
+
+# v2.3.1.04 mod by Jukmisael
 ## Highlights
 
 - Organization of the services.sh
+- Added Hybrid support for Riru and Zygisk
+- Added support for hiding modifications in Init.rc and USB Debugging
+- Trying to hide addon.d not to show "Custom Rom"
+- Mount filesystem as RW to rename addon.dde improvements
+- Fix JsonUpdate Module files
+
+- Some modifications in Init.rc can not be hidden, this is a problem with the ROM
 
 # v2.3.1.03 mod by Jukmisael
 
