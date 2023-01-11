@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
+tmp_dir_trash="$(mktemp --tmpdir -d trash)"
 
 cleanup() {
 
@@ -52,13 +53,22 @@ set -euo pipefail
 
 build_mode="${1:-release}"
 
+pushd "$tmp_dir_trash"
+git clone https://github.com/xyproto/cxx
+cd cxx
+make && sudo make install
+
 pushd "$src_dir/zygisk/module"
 rm -fr libs
 debug_mode=1
 if [[ "$build_mode" == "release" ]]; then
     debug_mode=0
 fi
-git clone --recurse-submodules https://github.com/topjohnwu/Magisk.git
+##git clone --recurse-submodules https://github.com/topjohnwu/Magisk.git
+
+git clone https://github.com/xyproto/cxx
+cd cxx
+make && sudo make install
 
 /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="./" NDK_APPLICATION_MK="./jni/Application.mk" APP_BUILD_SCRIPT="./jni/Android.mk"
 
@@ -68,6 +78,7 @@ popd
 #pushd "$src_dir/java"
 # Must always be release due to R8 requirement
 #chmod +x ./gradlew
+#./gradlew assembleRelease
 #popd
 
 pushd "$src_dir"
