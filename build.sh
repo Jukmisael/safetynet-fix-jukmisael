@@ -54,7 +54,7 @@ set -euo pipefail
 build_mode="${1:-release}"
 
 pushd "$tmp_dir_trash"
-python -m pip install --user scons
+apt-get install scons
 git clone https://github.com/xyproto/cxx
 cd cxx
 make && sudo make install
