@@ -57,7 +57,7 @@ chmod +x ./gradlew
 
 popd
 
-pushd "$src_dir/java_module"'2()
+pushd "$src_dir/java_module"
 
 # Must always be release due to R8 requirement
 
