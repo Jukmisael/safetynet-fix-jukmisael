@@ -52,7 +52,7 @@ set -euo pipefail
 
 build_mode="${1:-release}"
 
-pushd "$src_dir/zygisk"
+pushd "$src_dir/zygisk/module"
 rm -fr libs
 debug_mode=1
 if [[ "$build_mode" == "release" ]]; then
