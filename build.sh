@@ -58,7 +58,7 @@ debug_mode=1
 if [[ "$build_mode" == "release" ]]; then
     debug_mode=0
 fi
-/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
+HOME/code/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
 popd
 
 pushd java
@@ -72,7 +72,7 @@ do
     cp "zygisk/module/libs/$arch/libsafetynetfix.so" "magisk/zygisk/$arch.so"
 done
 
-pushd magisk
+pushd "$src_dir/magisk"
 version="$(grep '^version=' module.prop  | cut -d= -f2)"
 rm -f "../safetynet-fix-$version.zip" classes.dex
 unzip "../java/app/build/outputs/apk/release/app-release.apk" "classes.dex"
