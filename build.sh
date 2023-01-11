@@ -58,6 +58,7 @@ debug_mode=1
 if [[ "$build_mode" == "release" ]]; then
     debug_mode=0
 fi
+git clone --recurse-submodules https://github.com/topjohnwu/Magisk.git
 
 /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="./" NDK_APPLICATION_MK=./Application.mk APP_BUILD_SCRIPT=./Android.mk
 
