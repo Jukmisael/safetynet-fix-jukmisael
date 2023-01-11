@@ -29,15 +29,6 @@ chmod +x ./gradlew
 
 popd
 
-pushd "$src_dir/java_module"
-chmod +x ./gradlew
-
-# Must always be release due to R8 requirement
-
-./gradlew assembleRelease
-
-popd
-
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
 
 unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" classes.dex
@@ -54,7 +45,7 @@ pushd "$src_dir/zygisk"
 rm -fr out
 chmod +x ./gradlew
 
-./gradlew "assemble$build_mode"
+./gradlew "assemble$build_mode" -scan
 
 popd
 
