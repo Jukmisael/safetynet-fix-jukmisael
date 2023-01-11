@@ -60,7 +60,7 @@ popd
 pushd "$src_dir/java_module"
 
 # Must always be release due to R8 requirement
-
+chmod +x ./gradlew
 ./gradlew assembleRelease
 
 popd
