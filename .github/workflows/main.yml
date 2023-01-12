@@ -41,7 +41,6 @@ jobs:
             
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
-        local-cache: true
         
       - name: Build release
         run: |
