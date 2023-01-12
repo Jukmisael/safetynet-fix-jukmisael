@@ -48,9 +48,10 @@ sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
 #zip -r9 "$src_dir/safetynet-fix.zip" .
 ls
 
-version="$(grep '^version=' module.prop  | cut -d= -f2)"
-rm -f "$src_dir/safetynet-fix-v$version.zip" classes.dex
+version="$(grep '^versionCode=' module.prop  | cut -d= -f2)"
+rm -f "$src_dir/safetynet-fix-$version.zip" classes.dex
 unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" classes.dex
-zip -r9 "$src_dir/safetynet-fix-v$version.zip" .
+zip -r9 "$src_dir/safetynet-fix-$version.zip" .
 
 ls
+pushd "$src_dir"
