@@ -18,7 +18,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
         
       - name: Setup Java
-         uses: actions/setup-java@v3
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '11'
@@ -40,16 +40,15 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build release
-  
         run: |
           chmod 777 ./build.sh && chmod +x./build.sh && ./build.sh && mkdir ./upload && unzip -o ./*.zip -d ./upload >> $GITHUB_OUTPUT
           
-        - name: Prepare artifact
-              if: success()
-              id: prepareArtifact
-              run: |
-                ReleaseName=`ls ./upload/safetynet-fix-*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
-
+      - name: Prepare artifact
+        if: success()
+        id: prepareArtifact
+        run: |
+          ReleaseName=`ls ./upload/safetynet-fix-*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
+                
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
