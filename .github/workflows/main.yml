@@ -16,10 +16,12 @@ jobs:
         
        
       - name: Install tools
+        local-cache: true
         run: |
-          sudo apt-get update
-          sudo apt-get -y install make build-essential cmake figlet clang ninja-build scons
-          sudo apt-get -y upgrade
+            sudo apt-get update
+            sudo apt-get -y install make build-essential cmake figlet clang ninja-build scons
+            sudo apt-get -y upgrade
+          
         
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
@@ -28,7 +30,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-          local-cache: true
           
       - name: SetupNDK r24
         id: setup-ndk-r24
@@ -45,6 +46,7 @@ jobs:
           local-cache: true
           
       - name: Cache Gradle
+        local-cache: true
         uses: actions/cache@v2
         with:
           path: |
@@ -54,6 +56,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build release
+        local-cache: true
         run: |
           chmod 777 ./build.sh
           chmod +x ./build.sh
@@ -66,3 +69,4 @@ jobs:
         with:
           name: riru-safetynet-fix
           path: ./upload
+          
