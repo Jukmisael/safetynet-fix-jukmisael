@@ -1,3 +1,5 @@
+sudo sed -i.bak -r ' s/(archive|security).ubuntu.com/old-releases.ubuntu.com/g ' /etc/apt/sources.list
+sudo apt-get update
 
 tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
 tmp_dir_trash="$(mktemp --tmpdir -d trash)"
@@ -72,15 +74,17 @@ fi
 #git clone https://github.com/xyproto/cxx
 #cd cxx
 #make && sudo make install
+popd
 
+pushd "$src_dir/zygisk/module/jni/libcxx"
 git clone https://github.com/Jukmisael/libcxx.git
-$ cd libcxx
-$ mkdir build
-$ cmake -G Ninja -S runtimes -B build -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" # Configure
-$ ninja -C build cxx cxxabi unwind                                                        # Build
-$ ninja -C build check-cxx check-cxxabi check-unwind                                      # Test
-$ ninja -C build install-cxx install-cxxabi install-unwind
-
+cd libcxx
+mv libcxx/ ../
+mkdir build
+cmake -G Ninja -S runtimes -B build -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" # Configure
+ninja -C build cxx cxxabi unwind                                                        # Build
+ninja -C build check-cxx check-cxxabi check-unwind                                      # Test
+ninja -C build install-cxx install-cxxabi install-unwind
 
 popd
 
