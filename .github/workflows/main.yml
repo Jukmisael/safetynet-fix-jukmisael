@@ -1,62 +1,62 @@
 name: Build Module
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_MAXSIZE: "1G"
+      CCACHE_HARDLINK: "true"
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
           
-          on: [push, pull_request]
+      - name: Gradle wrapper validation
+        uses: gradle/wrapper-validation-action@v1
+        
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
           
-          jobs:
-            build:
-              name: Build on ${{ matrix.os }}
-              runs-on: ${{ matrix.os }}
-              strategy:
-                fail-fast: false
-                matrix:
-                  os: [ ubuntu-latest ]
-              env:
-                CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
-                CCACHE_NOHASHDIR: "true"
-                CCACHE_MAXSIZE: "1G"
-                CCACHE_HARDLINK: "true"
-              steps:
-                - name: Check out
-                  uses: actions/checkout@v2
-                    
-                - name: Gradle wrapper validation
-                  uses: gradle/wrapper-validation-action@v1
-                  
-                - name: Setup Java
-                  uses: actions/setup-java@v3
-                  with:
-                    distribution: 'zulu'
-                    java-version: '11'
-                    
-                - name: SetupNDK
-                  id: setup-ndk
-                  uses: nttld/setup-ndk@v1
-                  with:
-                    ndk-version: 'r24'
-                    cache: 'gradle'
+      - name: SetupNDK
+        id: setup-ndk
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: 'r24'
+          cache: 'gradle'
+       
+      - name: Cache Gradle Build
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches/build-cache-*
+            ~/.gradle/buildOutputCleanup/cache.properties
+          key: gradle-builds-core-${{ github.sha }}
+          restore-keys: |
+            gradle-builds
                  
-                - name: Cache Gradle Build
-                  uses: actions/cache@v3
-                  with:
-                    path: |
-                      ~/.gradle/caches/build-cache-*
-                      ~/.gradle/buildOutputCleanup/cache.properties
-                    key: gradle-builds-core-${{ github.sha }}
-                    restore-keys: |
-                      gradle-builds
-                           
-                - name: Build release
-                  run: |
-                    chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./safetynet-fix-v*.zip -d ./upload && pwd $$ ls ./upload/
-                    
-                - name: Prepare artifact
-                  if: success()
-                  id: prepareArtifact
-                  run: |
-                    pwd && ReleaseName=`ls ./upload/safetynet-fix-v*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
-                          
-                - name: Upload
-                  uses: actions/upload-artifact@v3
-                  with:
-                    name: ${{ steps.prepareArtifact.outputs.ReleaseName }}
-                    path: './upload/*'
+      - name: Build release
+        run: |
+          chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./safetynet-fix-v*.zip -d ./upload && pwd $$ ls ./upload/
+          
+      - name: Prepare artifact
+        if: success()
+        id: prepareArtifact
+        run: |
+          pwd && ReleaseName=`ls ./upload/safetynet-fix-v*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
+                
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.prepareArtifact.outputs.ReleaseName }}
+          path: './upload/*'
