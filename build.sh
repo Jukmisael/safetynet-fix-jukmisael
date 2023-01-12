@@ -76,13 +76,13 @@ git clone https://github.com/Jukmisael/libcxx.git
 cd libcxx
 mv * ../
 cd ..
-mkdir build
-cmake -G Ninja -S ./ -B build
+sudo /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$(pwd)" APP_BUILD_SCRIPT="$(pwd)/Android.mk"
+#cmake -G Ninja -S ./ -B build
 #-DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" # Configure
-ninja -C build cxx cxxabi unwind                                                    
+#ninja -C build cxx cxxabi unwind                                                    
 # Build
-ninja -C build check-cxx check-cxxabi check-unwind                                      # Test
-ninja -C build install-cxx install-cxxabi install-unwind
+#ninja -C build check-cxx check-cxxabi check-unwind                                      # Test
+#ninja -C build install-cxx install-cxxabi install-unwind
 
 popd
 
