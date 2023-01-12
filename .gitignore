@@ -1,7 +1,5 @@
 .DS_Store
-*.zip
-*.so
-*.dex
+/*.zip
 
 # VS Code Java Language Server
 .settings/

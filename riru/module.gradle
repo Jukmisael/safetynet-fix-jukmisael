@@ -20,11 +20,11 @@ ext {
        Note, the older version of the template uses '-' instead of '_', if your are upgrading from
        the older version, please pay attention.
     */
-    magiskModuleId = "safetynet-fix-jukmisael"
+    magiskModuleId = "safetynet-fix"
 
-    moduleName = "Universal SafetyNet Fix mod by Jukmisael"
-    moduleAuthor = "Jukmisael"
-    moduleDescription = "A universal fix for SafetyNet and Play Integrity API on Android 8–13 devices with hardware attestation and unlocked bootloaders. Requires MagiskHide and Riru $moduleMinRiruVersionName or newer."
-    moduleVersion = "v2.4.0.01"
-    moduleVersionCode = 2040001
+    moduleName = "Universal SafetyNet Fix"
+    moduleAuthor = "kdrag0n"
+    moduleDescription = "A universal fix for SafetyNet on Android 8–12 devices with hardware attestation and unlocked bootloaders. Requires MagiskHide and Riru $moduleMinRiruVersionName or newer."
+    moduleVersion = "v2.4.0"
+    moduleVersionCode = 20400
 }
