@@ -52,4 +52,4 @@ jobs:
       - name:  ${{ steps.prepareArtifact.outputs.uReleaseName }}
         uses: actions/upload-artifact@v3
         with:
-        path: ./upload
+          path: ./upload
