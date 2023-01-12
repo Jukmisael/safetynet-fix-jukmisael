@@ -26,11 +26,11 @@ jobs:
         with:
           ndk-version: 'r24'
           
-      - name: 'Set up latest Oracle JDK 19'
+      - name: 'Set up latest Oracle JDK 17'
         uses: oracle-actions/setup-java@v1
         with:
           website: oracle.com
-          release: 19
+          release: 17
              
       - name: Cache Gradle
         uses: actions/cache@v3
