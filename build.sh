@@ -16,11 +16,13 @@ cd "$tmp_dir"
 
 pushd "$src_dir/riru"
 rm -fr out
+chmod 777 *
 ./gradlew "assemble$build_mode"
 popd
 
 pushd "$src_dir/java_module"
 # Must always be release due to R8 requirement
+chmod 777 *
 ./gradlew assembleRelease
 popd
 
