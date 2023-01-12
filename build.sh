@@ -1,10 +1,3 @@
-sudo add-apt-repository main
-sudo add-apt-repository universe
-sudo add-apt-repository restricted
-sudo add-apt-repository multiverse
-sudo sed -i.bak -r ' s/(archive|security).ubuntu.com/old-releases.ubuntu.com/g ' /etc/apt/sources.list
-sudo apt-get update
-
 tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
 tmp_dir_trash="$(mktemp --tmpdir -d trash)"
 
@@ -59,9 +52,10 @@ set -euo pipefail
 build_mode="${1:-release}"
 
 pushd "$tmp_dir_trash"
-sudo apt-get install scons ninja-build make build-essential
+sudo apt install make build-essential
 
-sudo snap install cmake figlet clang
+sudo snap install cmake figlet clang ninja-build scons
+
 #git clone https://github.com/xyproto/cxx
 #cd cxx
 #make && sudo make install
