@@ -1,6 +1,4 @@
 tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
-tmp_dir_trash="$(mktemp --tmpdir -d trash.XXXXXXXXXX)"
-
 cleanup() {
 
     rm -fr "$tmp_dir"
