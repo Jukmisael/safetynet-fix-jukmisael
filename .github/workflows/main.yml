@@ -16,13 +16,13 @@ jobs:
           
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
-
-- name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '11'
-        cache: 'gradle'
+        
+      - name: Setup Java
+         uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'gradle'
           
       - name: SetupNDK
         id: setup-ndk
@@ -53,5 +53,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
-          name:${{ steps.prepareArtifact.outputs.uReleaseName }}
+        name: ${{ steps.prepareArtifact.outputs.uReleaseName }}
           path: ./upload
