@@ -43,7 +43,6 @@ jobs:
           ./build.sh
           mkdir ./upload
           unzip -o ./safetynet-fix.zip -d ./upload
-
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
