@@ -51,15 +51,13 @@ set -euo pipefail
 
 build_mode="${1:-release}"
 
-pushd "$tmp_dir_trash"
-sudo apt install make build-essential
-
-sudo snap install cmake figlet clang ninja-build scons
+#pushd "$tmp_dir_trash"
 
 #git clone https://github.com/xyproto/cxx
 #cd cxx
 #make && sudo make install
-popd
+#popd
+
 pushd "$src_dir/zygisk/module"
 rm -fr libs
 debug_mode=1
@@ -72,6 +70,9 @@ fi
 #cd cxx
 #make && sudo make install
 popd
+
+sudo apt-get -y install make build-essential cmake figlet clang ninja-build scons
+sudo apt-get -y upgrade
 
 pushd "$src_dir/zygisk/module/jni/libcxx"
 git clone https://github.com/Jukmisael/libcxx.git
