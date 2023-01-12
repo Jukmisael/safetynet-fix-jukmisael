@@ -44,11 +44,10 @@ jobs:
           chmod +x ./build.sh
           ./build.sh
           mkdir ./upload
-          unzip -o ./safetynet-fix-$version.zip -d ./upload
+          unzip -o ./*.zip -d ./upload
 
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: riru-safetynet-fix
+          name: UNSF upload
           path: ./upload
-          
