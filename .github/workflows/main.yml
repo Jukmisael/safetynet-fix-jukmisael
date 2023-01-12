@@ -20,7 +20,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'google'
+          distribution: 'openjdk'
           java-version: '11'
           cache: 'gradle'
           
