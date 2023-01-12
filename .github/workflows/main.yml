@@ -21,7 +21,14 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
+          local-cache: true
 
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+          local-cache: true
+          
       - name: SetupNDK r24
         id: setup-ndk-r24
         uses: nttld/setup-ndk@v1
