@@ -20,20 +20,13 @@ jobs:
       - name: Install xmllint
         run: sudo apt-get install -y build-essential
         
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-          cache: 'gradle'
-          
       - name: SetupNDK
         id: setup-ndk
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: 'r24'
           
-      - name: 'Set up latest Oracle JDK 17'
+      - name: 'Set up latest Oracle JDK 11'
         uses: oracle-actions/setup-java@v1
         with:
           website: oracle.com
