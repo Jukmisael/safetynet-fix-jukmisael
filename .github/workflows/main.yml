@@ -17,32 +17,39 @@ jobs:
       CCACHE_HARDLINK: "true"
     steps:
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
           
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
         
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
-          java-version: '11'
+        distribution: 'zulu'
+        java-version: '11'
+        cache: 'gradle'
+        
+      - name: Cache Gradle Build
+        uses: actions/cache@v3
+        with:
+         path: |
+           ~/.gradle/caches/build-cache-*
+           ~/.gradle/buildOutputCleanup/cache.properties
+        key: gradle-builds-core-${{ github.sha }}
+        restore-keys: |
+          gradle-builds
           
+    - name: Set up ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}          
       - name: SetupNDK
         id: setup-ndk
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: 'r24'
-       
-      - name: Cache Gradle Build
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches/build-cache-*
-            ~/.gradle/buildOutputCleanup/cache.properties
-          key: gradle-builds-core-${{ github.sha }}
-          restore-keys: |
-            gradle-builds
-                 
+
       - name: Build release
         run: |
           chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./safetynet-fix-v*.zip -d ./upload && pwd $$ ls ./upload/
