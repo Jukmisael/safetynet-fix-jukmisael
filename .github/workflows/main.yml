@@ -17,16 +17,19 @@ jobs:
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: '17'
+          local-cache: true
 
       - name: SetupNDK
-        uses: nttld/setup-ndk@v1
         id: setup-ndk
+        uses: actions/checkout@v2
+        uses: nttld/setup-ndk@v1
         with:
           ndk-version: r25b
+          local-cache: true
 
       - name: Cache Gradle
         uses: actions/cache@v2

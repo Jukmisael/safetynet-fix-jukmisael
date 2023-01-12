@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 
 tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
 tmp_dir_trash="$(mktemp --tmpdir -d trash)"
@@ -54,7 +53,8 @@ set -euo pipefail
 build_mode="${1:-release}"
 
 pushd "$tmp_dir_trash"
-sudo apt-get install scons
+sudo apt-get install scons cmake gcc g++ build-essential libssl-dev curl git-core
+
 #git clone https://github.com/xyproto/cxx
 #cd cxx
 #make && sudo make install
