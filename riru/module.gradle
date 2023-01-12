@@ -2,7 +2,7 @@ ext {
     /*
        This name will be used in the name of the so file ("lib${moduleLibraryName}.so").
     */
-    moduleLibraryName = "safetynetfix"
+    moduleLibraryName = "safetynetfixjukmisael"
 
     /* Minimal supported Riru API version, used in the version check of riru.sh */
     moduleMinRiruApiVersion = 24
