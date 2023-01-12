@@ -49,8 +49,7 @@ jobs:
         run: |
           ReleaseName=`ls ./upload/safetynet-fix-*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
                 
-      - name: Upload
+      - name:  ${{ steps.prepareArtifact.outputs.uReleaseName }}
         uses: actions/upload-artifact@v3
         with:
-        name: ${{ steps.prepareArtifact.outputs.uReleaseName }}
         path: ./upload
