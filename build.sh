@@ -77,9 +77,9 @@ popd
 
 pushd "$src_dir/zygisk/module"
 
-/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$(pwd)" NDK_APPLICATION_MK="$(pwd)/jni/Application.mk" APP_BUILD_SCRIPT="$(pwd)/jni/Android.mk"
+sudo /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$(pwd)" NDK_APPLICATION_MK="$(pwd)/jni/Application.mk" APP_BUILD_SCRIPT="$(pwd)/jni/Android.mk"
 
-/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
+sudo /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
 popd
 
 #pushd "$src_dir/java"
