@@ -22,9 +22,9 @@ ext {
     */
     magiskModuleId = "safetynet-fix-jukmisael"
 
-    moduleName = "Universal SafetyNet Fix"
-    moduleAuthor = "kdrag0n"
-    moduleDescription = "A universal fix for SafetyNet on Android 8–12 devices with hardware attestation and unlocked bootloaders. Requires MagiskHide and Riru $moduleMinRiruVersionName or newer."
+    moduleName = "Universal SafetyNet Fix mod by Jukmisael"
+    moduleAuthor = "Jukmisael"
+    moduleDescription = "A universal fix for SafetyNet and Play Integrity API on Android 8–13 devices with hardware attestation and unlocked bootloaders. Requires MagiskHide and Riru $moduleMinRiruVersionName or newer."
     moduleVersion = "v2.4.0.01"
     moduleVersionCode = 2040001
 }

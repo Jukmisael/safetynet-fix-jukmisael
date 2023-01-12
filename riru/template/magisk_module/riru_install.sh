@@ -1,3 +1,4 @@
+SKIPUNZIP=1
 
 # Extract verify.sh
 unzip -o "$ZIPFILE" 'verify.sh' -d "$TMPDIR" >&2
@@ -42,10 +43,8 @@ ui_print "- Extracting module files"
 
 extract "$ZIPFILE" 'module.prop' "$MODPATH"
 extract "$ZIPFILE" 'system.prop' "$MODPATH"
-extract "$ZIPFILE" 'post-fs-data.sh' "$MODPATH"
 extract "$ZIPFILE" 'classes.dex' "$MODPATH"
 extract "$ZIPFILE" 'service.sh' "$MODPATH"
-chmod 755 "$MODPATH/post-fs-data.sh"
 chmod 755 "$MODPATH/service.sh"
 
 # Riru v24+ load files from the "riru" folder in the Magisk module folder
