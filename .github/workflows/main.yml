@@ -41,7 +41,7 @@ jobs:
 
       - name: Build release
         run: |
-          chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./*.zip -d ./upload >> $GITHUB_OUTPUT
+          chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./*.zip -d ./upload
           
       - name: Prepare artifact
         if: success()
@@ -49,7 +49,8 @@ jobs:
         run: |
           ReleaseName=`ls ./upload/safetynet-fix-*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
                 
-      - name:  ${{ steps.prepareArtifact.outputs.ReleaseName }}
+      - name: Upload
         uses: actions/upload-artifact@v3
         with:
+          name: ${{steps.prepareArtifact.outputs.ReleaseName }}
           path: ./upload
