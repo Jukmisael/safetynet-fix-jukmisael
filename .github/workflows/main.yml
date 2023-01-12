@@ -13,7 +13,15 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-
+        
+       
+      - name: Install tools
+        uses: actions/checkout@v2
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install make build-essential cmake figlet clang ninja-build scons
+          sudo apt-get -y upgrade
+        
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
 

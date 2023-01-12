@@ -1,5 +1,5 @@
 tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
-tmp_dir_trash="$(mktemp --tmpdir -d trash)"
+tmp_dir_trash="$(mktemp --tmpdir -d trash.XXXXXXXXXX)"
 
 cleanup() {
 
@@ -70,9 +70,6 @@ fi
 #cd cxx
 #make && sudo make install
 popd
-
-sudo apt-get -y install make build-essential cmake figlet clang ninja-build scons
-sudo apt-get -y upgrade
 
 pushd "$src_dir/zygisk/module/jni/libcxx"
 git clone https://github.com/Jukmisael/libcxx.git
