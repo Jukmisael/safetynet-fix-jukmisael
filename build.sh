@@ -58,6 +58,7 @@ sudo apt-get install scons cmake gcc g++ build-essential libssl-dev curl git-cor
 #git clone https://github.com/xyproto/cxx
 #cd cxx
 #make && sudo make install
+popd
 
 pushd "$src_dir/zygisk/module"
 rm -fr libs
@@ -70,6 +71,10 @@ fi
 git clone https://github.com/xyproto/cxx
 cd cxx
 make && sudo make install
+
+popd
+
+pushd "$src_dir/zygisk/module"
 
 /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$(pwd)" NDK_APPLICATION_MK="$(pwd)/jni/Application.mk" APP_BUILD_SCRIPT="$(pwd)/jni/Android.mk"
 
@@ -88,6 +93,8 @@ for arch in arm64-v8a armeabi-v7a x86 x86_64
 do
     cp "zygisk/module/libs/$arch/libsafetynetfix.so" "magisk/zygisk/$arch.so"
 done
+
+popd
 
 pushd "$src_dir/magisk"
 version="$(grep '^version=' module.prop  | cut -d= -f2)"
