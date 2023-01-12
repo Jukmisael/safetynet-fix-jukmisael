@@ -1,11 +1,10 @@
-name: Build
+name: Build Module
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Building in ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -41,7 +40,7 @@ jobs:
 
       - name: Build release
         run: |
-          chmod 777 ./build.sh && chmod +x./build.sh && ./build.sh && mkdir ./upload && unzip -o ./*.zip -d ./upload >> $GITHUB_OUTPUT
+          chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./*.zip -d ./upload >> $GITHUB_OUTPUT
           
       - name: Prepare artifact
         if: success()
