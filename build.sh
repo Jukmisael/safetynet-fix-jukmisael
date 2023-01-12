@@ -53,7 +53,7 @@ set -euo pipefail
 build_mode="${1:-release}"
 
 pushd "$tmp_dir_trash"
-sudo apt-get install scons cmake gcc g++ build-essential libssl-dev curl git-core pkg-config figlet freeglut3-dev g++-mingw-w64-x86-64 git gtk+3-dev libboost-all-dev libc-dev libglew-dev libglibmm-2.4-dev libsdl2-dev libsfml-dev make mesa-common-dev qtbase5-dev qtdeclarative5-dev scons python3 apt-utils apt-file libconfig++-dev libconfig++ libopenal-dev libglfw3-dev libvulkan-dev libglm-dev libsdl2-mixer-dev libboost-system-dev libfcgi-dev clang 
+sudo apt-get install scons cmake gcc g++ build-essential libssl-dev curl git-core pkg-config figlet freeglut3-dev g++-mingw-w64-x86-64 git gtk+3-dev libboost-all-dev libc-dev libglew-dev libglibmm-2.4-dev libsdl2-dev libsfml-dev make mesa-common-dev qtbase5-dev qtdeclarative5-dev scons python3 apt-utils apt-file libconfig++-dev libconfig++ libopenal-dev libglfw3-dev libvulkan-dev libglm-dev libsdl2-mixer-dev libboost-system-dev libfcgi-dev clang ninja-build
 
 
 #git clone https://github.com/xyproto/cxx
@@ -69,9 +69,18 @@ if [[ "$build_mode" == "release" ]]; then
 fi
 ##git clone --recurse-submodules https://github.com/topjohnwu/Magisk.git
 
-git clone https://github.com/xyproto/cxx
-cd cxx
-make && sudo make install
+#git clone https://github.com/xyproto/cxx
+#cd cxx
+#make && sudo make install
+
+git clone https://github.com/Jukmisael/libcxx.git
+$ cd libcxx
+$ mkdir build
+$ cmake -G Ninja -S runtimes -B build -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" # Configure
+$ ninja -C build cxx cxxabi unwind                                                        # Build
+$ ninja -C build check-cxx check-cxxabi check-unwind                                      # Test
+$ ninja -C build install-cxx install-cxxabi install-unwind
+
 
 popd
 
