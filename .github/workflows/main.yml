@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v3
-          with:
-        submodules: 'recursive'
-        fetch-depth: 0
     
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
@@ -54,7 +51,7 @@ jobs:
                 ReleaseName=`ls ./upload/safetynet-fix-*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
 
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@
         with:
           name:${{ steps.prepareArtifact.outputs.uReleaseName }}
           path: ./upload
