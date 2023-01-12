@@ -16,10 +16,7 @@ jobs:
           
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
-      
-      - name: Install xmllint
-        run: sudo apt-get install -y build-essential
-        
+
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
