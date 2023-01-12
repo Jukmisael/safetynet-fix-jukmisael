@@ -66,7 +66,6 @@ sudo snap install cmake figlet clang
 #cd cxx
 #make && sudo make install
 popd
-
 pushd "$src_dir/zygisk/module"
 rm -fr libs
 debug_mode=1
