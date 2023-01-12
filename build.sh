@@ -71,7 +71,7 @@ git clone https://github.com/xyproto/cxx
 cd cxx
 make && sudo make install
 
-/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="./" NDK_APPLICATION_MK="./jni/Application.mk" APP_BUILD_SCRIPT="./jni/Android.mk"
+/usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build NDK_PROJECT_PATH="$(pwd)" NDK_APPLICATION_MK="$(pwd)/jni/Application.mk" APP_BUILD_SCRIPT="$(pwd)/jni/Android.mk"
 
 /usr/local/lib/android/sdk/ndk/25.1.8937393/ndk-build -j48 NDK_DEBUG=$debug_mode
 popd
