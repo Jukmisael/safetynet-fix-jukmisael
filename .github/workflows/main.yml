@@ -23,13 +23,13 @@ jobs:
           java-version: '11'
 
       - name: SetupNDK r24
-        id: setup-ndk
+        id: setup-ndk-r24
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: r24
           
       - name: SetupNDK r25b
-        id: setup-ndk
+        id: setup-ndk-r25b
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: r25b
