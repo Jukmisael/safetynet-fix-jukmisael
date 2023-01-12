@@ -4,7 +4,8 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Building in ${{ matrix.os }}
+    name: Building ${{steps.name}} in ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
