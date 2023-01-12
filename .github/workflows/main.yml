@@ -13,15 +13,7 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-        
-       
-      - name: Install tools
-        run: |
-            sudo apt-get update
-            sudo apt-get -y install make build-essential cmake figlet clang ninja-build scons
-            sudo apt-get -y upgrade
-          
-        
+    
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
 
@@ -37,13 +29,6 @@ jobs:
           ndk-version: r24
           local-cache: true
           
-      - name: SetupNDK r25b
-        id: setup-ndk-r25b
-        uses: nttld/setup-ndk@v1
-        with:
-          ndk-version: r25b
-          local-cache: true
-          
       - name: Cache Gradle
         uses: actions/cache@v2
         with:
@@ -54,6 +39,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build release
+  
         run: |
           chmod 777 ./build.sh
           chmod +x ./build.sh

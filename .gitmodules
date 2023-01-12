@@ -1,3 +1,7 @@
 [submodule "zygisk/module/jni/libcxx"]
 	path = zygisk/module/jni/libcxx
 	url = https://github.com/Jukmisael/libcxx.git
+
+[submodule "java_module"]
+  path = java_modules
+  url = https://github.com/HuskyDG/safetynet-fix/tree/riru/java_module
