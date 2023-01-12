@@ -50,11 +50,11 @@ jobs:
         if: success()
         id: prepareArtifact
         run: |
-          ReleaseName=`ls ./safetynet-fix-v*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
-          cp ./safetynet-fix-v*.zip ./upload
+          ReleaseName=`ls safetynet-fix-v*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
+          mv safetynet-fix-v*.zip upload/
                 
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.prepareArtifact.outputs.ReleaseName }}
-          path: './upload/'
+          path: upload
