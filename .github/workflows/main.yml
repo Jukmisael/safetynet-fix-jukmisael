@@ -54,7 +54,6 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build release
-        local-cache: true
         run: |
           chmod 777 ./build.sh
           chmod +x ./build.sh
