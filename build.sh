@@ -74,7 +74,8 @@ popd
 pushd "$src_dir/zygisk/module/jni/libcxx"
 git clone https://github.com/Jukmisael/libcxx.git
 cd libcxx
-mv libcxx/ ../
+mv * ../
+cd ..
 mkdir build
 cmake -G Ninja -S runtimes -B build -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" # Configure
 ninja -C build cxx cxxabi unwind                                                        # Build
