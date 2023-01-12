@@ -25,7 +25,6 @@ jobs:
 
       - name: SetupNDK
         id: setup-ndk
-        uses: actions/checkout@v2
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: r25b
