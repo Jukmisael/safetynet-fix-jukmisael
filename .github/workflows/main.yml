@@ -10,11 +10,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-    env:
-      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
-      CCACHE_NOHASHDIR: "true"
-      CCACHE_MAXSIZE: "1G"
-      CCACHE_HARDLINK: "true"
     steps:
       - name: Check out
         uses: actions/checkout@v3
@@ -49,7 +44,7 @@ jobs:
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: 'r24'
-
+          
       - name: Build release
         run: |
           chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./safetynet-fix-v*.zip -d ./upload && pwd $$ ls ./upload/
