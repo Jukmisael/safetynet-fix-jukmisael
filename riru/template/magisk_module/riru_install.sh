@@ -45,6 +45,8 @@ extract "$ZIPFILE" 'module.prop' "$MODPATH"
 extract "$ZIPFILE" 'system.prop' "$MODPATH"
 extract "$ZIPFILE" 'classes.dex' "$MODPATH"
 extract "$ZIPFILE" 'service.sh' "$MODPATH"
+extract "$ZIPFILE" 'sepolicy.rule' "$MODPATH"
+extract "$ZIPFILE" 'post-fs-data.sh' "$MODPATH"
 chmod 755 "$MODPATH/service.sh"
 
 # Riru v24+ load files from the "riru" folder in the Magisk module folder
