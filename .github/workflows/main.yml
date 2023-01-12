@@ -34,33 +34,29 @@ jobs:
         with:
           ndk-version: 'r24'
           cache: 'gradle'
-          
-      - name: setup-android-tools
-        uses: maxim-lobanov/setup-android-tools@v1
-        with:
-          packages: ndk;24.0.8215888
-          
-      - name: Cache Gradle
-        uses: actions/cache@v2
+       
+      - name: Cache Gradle Build
+        uses: actions/cache@v3
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ github.sha }}
-          restore-keys: ${{ runner.os }}-gradle-
-
+            ~/.gradle/caches/build-cache-*
+            ~/.gradle/buildOutputCleanup/cache.properties
+          key: gradle-builds-core-${{ github.sha }}
+          restore-keys: |
+            gradle-builds
+                 
       - name: Build release
         run: |
-          chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./safetynet-fix-v*.zip -d ./upload && pwd
+          chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh && mkdir ./upload && unzip -o ./safetynet-fix-v*.zip -d ./upload && pwd $$ ls ./upload/
           
       - name: Prepare artifact
         if: success()
         id: prepareArtifact
         run: |
-          pwd && ReleaseName=`ls upload/safetynet-fix-v*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
+          pwd && ReleaseName=`ls ./upload/safetynet-fix-v*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
                 
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.prepareArtifact.outputs.ReleaseName }}
-          path: ./upload
+          path: './upload/*'
