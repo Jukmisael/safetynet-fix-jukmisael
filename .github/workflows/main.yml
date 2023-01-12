@@ -16,7 +16,6 @@ jobs:
         
        
       - name: Install tools
-        uses: actions/checkout@v2
         run: |
           sudo apt-get update
           sudo apt-get -y install make build-essential cmake figlet clang ninja-build scons
