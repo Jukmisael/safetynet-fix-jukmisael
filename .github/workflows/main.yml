@@ -51,7 +51,7 @@ jobs:
         id: prepareArtifact
         run: |
           ReleaseName=`ls ./safetynet-fix-v*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
-          unzip ./safetynet-fix-v*.zip -d ./upload
+          cp ./safetynet-fix-v*.zip ./upload
                 
       - name: Upload
         uses: actions/upload-artifact@v3
