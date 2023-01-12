@@ -77,7 +77,8 @@ cd libcxx
 mv * ../
 cd ..
 mkdir build
-cmake -G Ninja -S ./ -B build -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" # Configure
+cmake -G Ninja -S ./ -B build
+#-DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" # Configure
 ninja -C build cxx cxxabi unwind                                                    
 # Build
 ninja -C build check-cxx check-cxxabi check-unwind                                      # Test
