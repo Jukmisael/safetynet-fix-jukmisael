@@ -62,3 +62,5 @@ jobs:
         with:
           name: ${{ steps.prepareArtifact.outputs.ReleaseName }}
           path: upload
+          if-no-files-found: error
+          
