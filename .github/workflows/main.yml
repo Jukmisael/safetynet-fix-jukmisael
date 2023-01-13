@@ -38,10 +38,7 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ github.sha }}
           restore-keys: ${{ runner.os }}-gradle
-            
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-        
+           
       - name: Build release
         run: |
           chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh
