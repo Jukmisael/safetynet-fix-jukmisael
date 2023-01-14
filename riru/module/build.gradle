@@ -10,6 +10,7 @@ android {
     compileSdkVersion rootProject.ext.targetSdkVersion
     defaultConfig {
         applicationId "riru.template"
+        testNamespace "riru.template"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         externalNativeBuild {
