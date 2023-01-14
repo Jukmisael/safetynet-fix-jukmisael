@@ -13,6 +13,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.0-rc03'
+        compile group: 'org.apache.ant', name: 'ant', version: '1.10.9'
     }
 }
 
