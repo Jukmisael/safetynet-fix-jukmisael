@@ -22,7 +22,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'correto'
+          distribution: 'corretto'
           java-version: '19'
           ava-package: jre
           cache: 'gradle'
