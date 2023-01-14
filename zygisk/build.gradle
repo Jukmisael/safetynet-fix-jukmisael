@@ -12,10 +12,11 @@ buildscript {
     }
 }
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
 
     defaultConfig {
-        targetSdkVersion 30
+        targetSdkVersion 33
+        minSdkVersion 23
     }
 }
 ext {

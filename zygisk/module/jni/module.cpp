@@ -9,9 +9,9 @@
 #include "zygisk.hpp"
 #include "module.h"
 
-namespace safetynetfix {
+namespace safetynetfixjukmisael {
 
-class SafetyNetFixModule : public zygisk::ModuleBase {
+class SafetyNetFixjukmisaelModule : public zygisk::ModuleBase {
 public:
     void onLoad(zygisk::Api *api, JNIEnv *env) override {
         this->api = api;
@@ -130,7 +130,7 @@ private:
         LOGD("load class");
         auto loadClass = env->GetMethodID(clClass, "loadClass",
                                                "(Ljava/lang/String;)Ljava/lang/Class;");
-        auto entryClassName = env->NewStringUTF("dev.kdrag0n.safetynetfix.EntryPoint");
+        auto entryClassName = env->NewStringUTF("dev.kdrag0n.safetynetfixjukmisael.EntryPoint");
         auto entryClassObj = env->CallObjectMethod(dexCl, loadClass, entryClassName);
 
         // Call init. Static initializers don't run when merely calling loadClass from JNI.
@@ -183,5 +183,5 @@ static void companionHandler(int remote_fd) {
 
 }
 
-REGISTER_ZYGISK_COMPANION(safetynetfix::companionHandler)
-REGISTER_ZYGISK_MODULE(safetynetfix::SafetyNetFixModule)
+REGISTER_ZYGISK_COMPANION(safetynetfixjukmisael::companionHandler)
+REGISTER_ZYGISK_MODULE(safetynetfixjukmisael::SafetyNetFixjukmisaelModule)

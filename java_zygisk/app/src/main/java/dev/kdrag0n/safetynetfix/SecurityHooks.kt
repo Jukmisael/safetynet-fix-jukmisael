@@ -1,7 +1,7 @@
-package dev.kdrag0n.safetynetfix
+package dev.kdrag0n.safetynetfixjukmisael
 
-import dev.kdrag0n.safetynetfix.proxy.ProxyKeyStoreSpi
-import dev.kdrag0n.safetynetfix.proxy.ProxyProvider
+import dev.kdrag0n.safetynetfixjukmisael.proxy.ProxyKeyStoreSpi
+import dev.kdrag0n.safetynetfixjukmisael.proxy.ProxyProvider
 import java.security.KeyStore
 import java.security.KeyStoreSpi
 import java.security.Security

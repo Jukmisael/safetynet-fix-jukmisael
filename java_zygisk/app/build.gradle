@@ -7,7 +7,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "dev.kdrag0n.safetynetfix"
+        applicationId "dev.kdrag0n.safetynetfixjukmisael"
         minSdk 24
         targetSdk 30
         versionCode 1
@@ -33,5 +33,5 @@ android {
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.1'
 }

@@ -1,8 +1,8 @@
-package dev.kdrag0n.safetynetfix.proxy
+package dev.kdrag0n.safetynetfixjukmisael.proxy
 
 import android.os.Build
-import dev.kdrag0n.safetynetfix.SecurityHooks
-import dev.kdrag0n.safetynetfix.logDebug
+import dev.kdrag0n.safetynetfixjukmisael.SecurityHooks
+import dev.kdrag0n.safetynetfixjukmisael.logDebug
 import java.security.Provider
 import kotlin.concurrent.thread
 
