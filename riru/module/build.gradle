@@ -9,8 +9,6 @@ apply from: file(rootProject.file('module.gradle'))
 android {
     compileSdkVersion rootProject.ext.targetSdkVersion
     defaultConfig {
-        applicationId "riru.template"
-        testApplicationId  "rirutest.template"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         externalNativeBuild {
