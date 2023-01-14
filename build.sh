@@ -25,7 +25,24 @@ chmod +x ./gradlew
 
 popd
 
-pushd "$src_dir/java_module"
+pushd "$src_dir/java_riru"
+
+rm -fr out
+chmod +x ./gradlew
+./gradlew "assemble$build_mode"
+ls
+popd
+
+pushd "$src_dir/zygisk"
+
+rm -fr out
+chmod +x ./gradlew
+./gradlew "assemble$build_mode"
+ls
+
+popd
+
+pushd "$src_dir/java_zygisk"
 
 rm -fr out
 chmod +x ./gradlew
@@ -42,7 +59,8 @@ version="$(grep '^version=' module.prop  | cut -d= -f2)"
 
 rm -f "$src_dir/safetynet-fix-v"*.zip
 
-unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" classes.dex
+unzip "$src_dir/java_riru/app/build/outputs/apk/release/app-release.apk" classes.dex
+unzip "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk" zygisk_classes.dex
 
 sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
 

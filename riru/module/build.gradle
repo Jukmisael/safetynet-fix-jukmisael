@@ -60,7 +60,7 @@ afterEvaluate {
         task("prepareMagiskFiles${variantCapped}", type: Sync) {
             dependsOn("assemble$variantCapped")
 
-            def templatePath = "$rootDir/template/magisk_module"
+            def templatePath = "$rootDir/../template/magisk_module"
 
             into magiskDir
             from(templatePath) {
@@ -134,3 +134,9 @@ afterEvaluate {
         variant.assembleProvider.get().finalizedBy("zip${variantCapped}")
     }
 }
+buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true         
+        }
+    }

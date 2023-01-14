@@ -2,7 +2,7 @@ ext {
     /*
        This name will be used in the name of the so file ("lib${moduleLibraryName}.so").
     */
-    moduleLibraryName = "safetynetfix"
+    moduleLibraryName = "safetynetfixjukmisael"
 
     /* Minimal supported Riru API version, used in the version check of riru.sh */
     moduleMinRiruApiVersion = 24
@@ -25,6 +25,6 @@ ext {
     moduleName = "Universal SafetyNet Fix mod by Jukmisael"
     moduleAuthor = "Jukmisael"
     moduleDescription = "A universal fix for SafetyNet and Play Integrity API on Android 8–13 devices with hardware attestation and unlocked bootloaders. Requires MagiskHide and Riru $moduleMinRiruVersionName or newer."
-    moduleVersion = "v2.4.0.01"
-    moduleVersionCode = 2040001
+    moduleVersion = "v2.4.0.02"
+    moduleVersionCode = 2040002
 }

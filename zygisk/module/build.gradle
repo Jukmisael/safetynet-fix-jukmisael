@@ -1,0 +1,17 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    externalNativeBuild {
+        ndkBuild {
+            path("jni/Android.mk")
+        }
+    }
+}
+buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true         
+        }
+    }

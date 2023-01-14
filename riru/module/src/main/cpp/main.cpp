@@ -10,7 +10,7 @@
 #include <android/log.h>
 
 #ifndef NDEBUG
-#define DEBUG(...) __android_log_write(ANDROID_LOG_DEBUG, "SafetyNetRiru/JNI", __VA_ARGS__)
+#define DEBUG(...) __android_log_write(ANDROID_LOG_DEBUG, "SafetynetRiruJuk/JNI", __VA_ARGS__)
 #else
 #define DEBUG(...)
 #endif
@@ -58,7 +58,7 @@ static void specializeCommon(JNIEnv *env) {
     DEBUG("load class method lookup");
     jmethodID loadClass = env->GetMethodID(clClass, "loadClass", "(Ljava/lang/String;)Ljava/lang/Class;");
     DEBUG("call load class");
-    jstring entryClassName = env->NewStringUTF("dev.kdrag0n.safetynetriru.EntryPoint");
+    jstring entryClassName = env->NewStringUTF("dev.kdrag0n.safetynetrirujukmisael.EntryPoint");
     jobject entryClassObj = env->CallObjectMethod(dexCl, loadClass, entryClassName);
 
     // Call init. Static initializers don't run when merely calling loadClass from JNI.
