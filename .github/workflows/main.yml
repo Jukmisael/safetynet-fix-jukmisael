@@ -45,7 +45,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
            
       - name: Install cmake
-        run: sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates gnupg software-properties-common wget libssl-dev && wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add && sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/bionic main' && sudo apt-get update && sudo apt-get install cmake
+        run: sudo snap install cmake --classic
       - name: Build release
         run: |
           chmod 777 ./build.sh && chmod +x ./build.sh && ./build.sh
