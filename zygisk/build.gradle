@@ -11,15 +11,12 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-android {
-    compileSdkVersion 33
 
-    defaultConfig {
-        targetSdkVersion 33
-        minSdkVersion 23
-    }
-}
 ext {
+    targetSdkVersion 33
+    minSdkVersion 23
+    compileSdkVersion 33
+    
     outDir = file("$rootDir/out")
 }
 
