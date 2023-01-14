@@ -30,12 +30,11 @@ pushd "$src_dir/java_module"
 rm -fr out
 chmod +x ./gradlew
 ./gradlew "assemble$build_mode"
-
+ls
 popd
 
-ls
-
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
+ls
 
 #unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" classes.dex
 
