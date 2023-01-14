@@ -24,8 +24,7 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '11'
-          ava-package: jdk
-          cache: 'gradle'
+          java-package: jdk
           check-latest: true
           
       - name: SetupNDK
@@ -33,7 +32,6 @@ jobs:
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: 'r20'
-          local-cache: true
           add-to-path: true
 
       
