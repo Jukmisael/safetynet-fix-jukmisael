@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.25.1)
 
 if (NOT DEFINED MODULE_NAME)
     message(FATAL_ERROR "MODULE_NAME is not set")
