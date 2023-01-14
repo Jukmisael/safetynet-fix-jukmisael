@@ -33,10 +33,11 @@ chmod +x ./gradlew
 
 popd
 
+ls
+
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
 
 #unzip "$src_dir/java_module/app/build/outputs/apk/release/app-release.apk" classes.dex
-
 
 version="$(grep '^version=' module.prop  | cut -d= -f2)"
 
