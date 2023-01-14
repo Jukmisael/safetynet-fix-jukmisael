@@ -21,7 +21,7 @@ pushd "$src_dir/riru"
 
 rm -fr out
 chmod +x ./gradlew
-./gradlew "assemble$build_mode"
+./gradlew "assemble$build_mode" --debug
 
 popd
 
@@ -29,7 +29,7 @@ pushd "$src_dir/java_module"
 
 rm -fr out
 chmod +x ./gradlew
-./gradlew "assemble$build_mode"
+./gradlew "assemble$build_mode" --debug
 
 popd
 
