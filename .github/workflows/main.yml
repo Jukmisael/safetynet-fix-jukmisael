@@ -45,10 +45,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
            
       - name: Install cmake
-        run: sudo snap install cmake --classic && sudo snap install androidsdk
-
-      - name: Update SDK
-        run: sdkmanager "platform-tools" "platforms;android-33"
+        run: sudo snap install cmake --classic
       
       - name: Build release
         run: |
