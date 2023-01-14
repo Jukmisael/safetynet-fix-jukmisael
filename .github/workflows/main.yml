@@ -22,9 +22,11 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '11.0.12+7'
+          distribution: 'correto'
+          java-version: '19'
+          ava-package: jre
           cache: 'gradle'
+          check-latest: true
           
       - name: SetupNDK
         id: setup-ndk
