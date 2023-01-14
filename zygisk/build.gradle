@@ -11,6 +11,13 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        targetSdkVersion 30
+    }
+}
 ext {
     outDir = file("$rootDir/out")
 }
