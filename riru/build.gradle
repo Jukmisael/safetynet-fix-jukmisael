@@ -15,13 +15,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.4.0-rc03'
     }
 }
-buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true         
-        }
-    }
-    
+
 allprojects {
     repositories {
         mavenCentral()

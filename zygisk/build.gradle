@@ -14,13 +14,7 @@ buildscript {
 ext {
     outDir = file("$rootDir/out")
 }
-buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true         
-        }
-    }
-    
+
 task clean(type: Delete) {
     delete rootProject.buildDir, outDir
 }

@@ -134,9 +134,4 @@ afterEvaluate {
         variant.assembleProvider.get().finalizedBy("zip${variantCapped}")
     }
 }
-buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true         
-        }
-    }
+ 

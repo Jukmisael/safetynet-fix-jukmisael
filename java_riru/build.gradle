@@ -13,12 +13,7 @@ buildscript {
     }
 }
 
-buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true         
-        }
-    }
+ 
 
 ext {
     compileSdkVersion = 33
