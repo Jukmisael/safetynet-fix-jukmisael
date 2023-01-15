@@ -2,9 +2,6 @@ plugins {
     id 'com.android.library'
 }
 
-android {
-    compileSdkVersion  = 33
-}
 externalNativeBuild {
     ndkBuild {
         path("jni/Android.mk")
