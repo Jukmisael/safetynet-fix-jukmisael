@@ -2,8 +2,10 @@ plugins {
     id 'com.android.library'
 }
 
-externalNativeBuild {
-    ndkBuild {
-        path("jni/Android.mk")
+android {
+    externalNativeBuild {
+        ndkBuild {
+            path("jni/Android.mk")
+        }
     }
 }
