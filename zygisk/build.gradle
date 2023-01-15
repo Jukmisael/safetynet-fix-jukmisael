@@ -12,13 +12,6 @@ buildscript {
     }
 }
 
-ext {
-    minSdkVersion = 23
-    targetSdkVersion = 33
-    compileSdkVersion  = 33
-    outDir = file("$rootDir/out")
-}
-
 task clean(type: Delete) {
-    delete rootProject.buildDir, outDir
+    delete rootProject.buildDir,  file("$rootDir/out")
 }
