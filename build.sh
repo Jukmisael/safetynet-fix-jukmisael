@@ -8,7 +8,6 @@ trap cleanup EXIT
 
 build_mode="${1:-Release}"
 
-
 pushd "$(dirname "$0")"
 src_dir="$(pwd)"
 popd
