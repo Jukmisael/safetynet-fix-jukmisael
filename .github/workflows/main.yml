@@ -25,7 +25,7 @@ jobs:
           add-to-path: true
            
       - name: Install cmake
-        run: sudo snap install cmake --classic
+        run: sudo snap install cmake --classic && sudo apt-get install -y clang-14 lld-14 llvm build-essential
       
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
