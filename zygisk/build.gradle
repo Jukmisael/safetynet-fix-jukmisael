@@ -13,7 +13,8 @@ buildscript {
 }
 
 ext {
-    compileSdkVersion 33
+    minSdkVersion = 23
+    targetSdkVersion = 33
     outDir = file("$rootDir/out")
 }
 
