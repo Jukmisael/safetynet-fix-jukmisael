@@ -4,10 +4,6 @@ plugins {
 
 android {
     compileSdk 30
-    defaultconfig{
-            minSdk 21
-            targetSdk 30
-    }
     externalNativeBuild {
         ndkBuild {
             path("jni/Android.mk")
