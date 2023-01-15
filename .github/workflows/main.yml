@@ -40,7 +40,7 @@ jobs:
 
       - name: Build release
         run: |
-          chmod 777 ./build.sh && chmod +x ./build.sh && bash ./build.sh
+          chmod 777 ./build.sh && chmod +x ./build.sh && sed -i 's/\r$//' file ./build.sh &&  ./build.sh
           
       - name: Prepare artifact
         if: success()
