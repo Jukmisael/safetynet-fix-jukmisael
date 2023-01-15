@@ -1,6 +1,6 @@
 #pragma once
 
-namespace safetynetfix {
+namespace safetynetfixjukmisael {
 
 static constexpr auto TAG = "SNFixJ/JNI";
 
