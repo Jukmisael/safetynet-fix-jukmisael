@@ -3,14 +3,13 @@ plugins {
 }
 
 android {
+    minSdkVersion = 23
+    targetSdkVersion = 33
+    compileSdkVersion  = 33
+    
     externalNativeBuild {
         ndkBuild {
             path("jni/Android.mk")
         }
     }
-}
-ext {
-    minSdkVersion = 23
-    targetSdkVersion = 33
-    compileSdkVersion  = 33
 }
