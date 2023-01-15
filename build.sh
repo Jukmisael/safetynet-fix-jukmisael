@@ -1,8 +1,8 @@
+#!/usr/bin/env bash
+
 tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
 cleanup() {
-
     rm -fr "$tmp_dir"
-
 }
 
 trap cleanup EXIT
