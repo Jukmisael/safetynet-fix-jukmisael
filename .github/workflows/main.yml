@@ -35,7 +35,6 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
           java-package: jdk
-          check-latest: true
           cache: gradle
 
       - name: Build release
