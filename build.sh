@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
+zy_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
 
 cleanup() {
     rm -fr "$tmp_dir"
@@ -13,6 +14,8 @@ pushd "$(dirname "$0")"
 src_dir="$(pwd)"
 popd
 
+cd "$tmp_dir"
+
 pushd "$src_dir/riru"
 rm -fr out
 chmod +x ./gradlew
@@ -24,23 +27,24 @@ rm -fr out
 chmod +x ./gradlew
 ./gradlew "assemble$build_mode"
 unzip "./app/build/outputs/apk/release/app-release.apk" classes.dex
-mv classes.dex "$src_dir/classes.dex"
+mv classes.dex "$tmp_dir/classes.dex
 popd
+
 
 pushd "$src_dir/java_zygisk"
 rm -fr out
 chmod +x ./gradlew
 ./gradlew "assemble$build_mode"
 unzip "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk" classes.dex
-mv classes.dex "$src_dir/zygisk_classes.dex"
+mv classes.dex "$tmp_dir/zygisk_classes.dex"
 popd
 
-pushd "$tmp_dir/"
+pushd "$zy_dir/"
 mkdir wsfn
 mkdir sfn
 wget -P "./wsfn" https://github.com/kdrag0n/safetynet-fix/releases/download/v2.4.0/safetynet-fix-v2.4.0.zip
 unzip "./wsfn/safetynet-fix-v2.4.0.zip" -d "./sfn"
-mv "./sfn/zygisk" "$src_dir/zygisk/"
+mv "./sfn/zygisk" "$tmp_dir/zygisk/"
 popd
 
 
