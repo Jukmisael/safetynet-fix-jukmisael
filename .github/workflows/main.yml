@@ -22,9 +22,6 @@ jobs:
           ndk-version: 'r25b'
           add-to-path: true
           local-cache: true
-           
-      - name: Install cmake
-        run: sudo snap install cmake --classic && sudo apt-get install -y build-essential make
 
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
@@ -40,7 +37,7 @@ jobs:
       - name: Build release
         run: |
           chmod 777 ./build.sh && chmod +x ./build.sh && sed -i 's/\r$//' ./build.sh &&  ./build.sh
-          
+   
       - name: Prepare artifact
         if: success()
         id: prepareArtifact
@@ -50,11 +47,11 @@ jobs:
           cp "safetynet-fix-v"*.zip ./upload/
           ReleaseName=`ls ./upload/safetynet-fix-v*.zip | awk -F '(/|.zip)' '{print $3}'` && echo "ReleaseName=$ReleaseName" >> $GITHUB_OUTPUT
           unzip "safetynet-fix-v"*.zip -d ./release
-                
+          rm "safetynetfix-fix-v"*.zip
+        
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.prepareArtifact.outputs.ReleaseName }}
           path: release
           if-no-files-found: error
-          
