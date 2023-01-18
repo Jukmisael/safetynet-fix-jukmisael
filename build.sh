@@ -46,6 +46,10 @@ unzip "$src_dir/java_riru/app/build/outputs/apk/release/app-release.apk" classes
 unzip "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk" -d "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk/tmp/classes.dex"
 mv "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk/tmp/classes.dex" zygisk_classes.dex
 
+wget -P "$tmp_dir/sfn" https://github.com/kdrag0n/safetynet-fix/releases/download/v2.4.0/safetynet-fix-v2.4.0.zip
+unzip "$tmp_dir/safetynet-fix-v2.4.0.zip" -d "$tmp_dir/sfn"
+mv "$tmp_dir/sfn/zygisk" ./
+
 sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
 sha256sum zygisk_classes.dex | cut -d' ' -f1 | tr -d '\n' > zygisk_classes.dex.sha256sum
 
