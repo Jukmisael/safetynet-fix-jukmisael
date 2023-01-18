@@ -1,4 +1,4 @@
-package dev.kdrag0n.safetynetfixjukmisael
+package dev.kdrag0n.safetynetfix
 
 @Suppress("unused")
 object EntryPoint {
