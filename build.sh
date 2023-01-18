@@ -49,6 +49,7 @@ popd || exit
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
 
 rm -f "$src_dir/safetynet-fix-v"*.zip
+rm .gitattributes
 version="$(grep '^version=' module.prop  | cut -d= -f2)"
 
 sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
