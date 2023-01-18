@@ -1,4 +1,14 @@
-# v2.3.1.05 modo by Jukmisael
+# v2.4.0.03 by Jukmisael
+## Highlights
+
+- Reverted module ID to work with original Zygisk
+- Riru updated to [HuskyDG's Riru mod](https://github.com/HuskyDG/safetynet-fix)
+- Added sha256sum for all files
+- RIRU compiled with NDK r23 and other gradle dependency update
+- RIRU compiled with gradle 7.6
+- Zygisk dex compiled with gradle 7.6
+
+# v2.3.1.05 by Jukmisael
 ## Highlights
 
 - Add Sepolicy rule
@@ -19,4 +29,5 @@
 
 # Donate
 
-**If you found this module helpful, please consider supporting development with a [recurring donation](https://patreon.com/kdrag0n)** for rewards such as early access to updates, exclusive behind-the-scenes development news, and priority support. Alternatively, [you can also **buy me a coffee**](https://paypal.me/kdrag0ndonate). All support is appreciated ❤️
+**If you found this module helpful, please consider supporting development with a [recurring donation](https://patreon.com/kdrag0n)** for rewards such as early access to updates, exclusive behind-the-scenes development news, and priority support.
+**Alternatively, [you can also **buy me a coffee**](https://paypal.me/kdrag0ndonate). All support is appreciated ❤️
