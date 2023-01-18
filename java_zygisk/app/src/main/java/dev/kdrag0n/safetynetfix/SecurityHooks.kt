@@ -7,22 +7,21 @@ import java.security.KeyStoreSpi
 import java.security.Security
 
 internal object SecurityHooks {
-    const val PROVIDER_NAME = "AndroidKeyStore"
+    private const val ANDROID_KEY_STORE = "AndroidKeyStore"
 
     fun init() {
-        logDebug("Initializing SecurityBridge")
+        val realProvider = Security.getProvider(ANDROID_KEY_STORE)
+        val realKeystore = KeyStore.getInstance(ANDROID_KEY_STORE)
+        val realSpi = realKeystore?.getKeyStoreSpi()
 
-        val realProvider = Security.getProvider(PROVIDER_NAME)
-        val realKeystore = KeyStore.getInstance(PROVIDER_NAME)
-        val realSpi = realKeystore.get<KeyStoreSpi>("keyStoreSpi")
-        logDebug("Real provider=$realProvider, keystore=$realKeystore, spi=$realSpi")
-
-        val provider = ProxyProvider(realProvider)
-        logDebug("Removing real provider")
-        Security.removeProvider(PROVIDER_NAME)
-        logDebug("Inserting provider $provider")
-        Security.insertProviderAt(provider, 1)
-        ProxyKeyStoreSpi.androidImpl = realSpi
-        logDebug("Security hooks installed")
+        if (realProvider != null && realKeystore != null && realSpi != null) {
+            Security.removeProvider(ANDROID_KEY_STORE)
+            Security.insertProviderAt(ProxyProvider(realProvider), 1)
+            ProxyKeyStoreSpi.androidImpl = realSpi
+            Log.i("SecurityHooks","Security hooks installed")
+        } else {
+            // Log an error message indicating that the expected objects were not found
+            Log.e("SecurityHooks","Security hooks not installed, provider, keystore or spi not found")
+        }
     }
 }
