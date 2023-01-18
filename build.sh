@@ -32,7 +32,7 @@ rm -fr out
 chmod +x ./gradlew
 ./gradlew "assemble$build_mode"
 unzip "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk" classes.dex
-mv classes.dex "$src_dir/zygisk_classes.dex
+mv classes.dex "$src_dir/zygisk_classes.dex"
 popd
 
 pushd "$tmp_dir/"
