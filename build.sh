@@ -1,62 +1,38 @@
 #!/usr/bin/env bash
 
-tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
-zy_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
+build_module() {
+    local name=$1
+    local src_dir=$2
+    local out_dir=$3
+    local build_mode=${4:-Release}
+    pushd "$src_dir"
+    rm -fr out
+    chmod +x ./gradlew
+    ./gradlew "assemble$build_mode"
+    unzip "app/build/outputs/apk/release/app-release.apk" classes.dex
+    mv classes.dex "$out_dir/${name}_classes.dex"
+    popd
+}
 
+tmp_dir="$(mktemp --tmpdir -d modulebuild.XXXXXXXXXX)"
 cleanup() {
     rm -fr "$tmp_dir"
 }
 trap cleanup EXIT
 
-build_mode="${1:-Release}"
-
 pushd "$(dirname "$0")" || exit
 src_dir="$(pwd)"
 popd || exit
 
-cd "$tmp_dir" || exit
+build_module riru "$src_dir/riru" "$tmp_dir" "$1"
+build_module java_riru "$src_dir/java_riru" "$tmp_dir" "$1"
+build_module java_zygisk "$src_dir/java_zygisk" "$tmp_dir" "$1"
 
-pushd "$src_dir/riru" || exit
-rm -fr out
-chmod +x ./gradlew
-./gradlew "assemble$build_mode"
-popd || exit
+wget -P "$tmp_dir" https://github.com/kdrag0n/safetynet-fix/releases/download/v2.4.0/safetynet-fix-v2.4.0.zip
+unzip "$tmp_dir/safetynet-fix-v2.4.0.zip" -d "$tmp_dir"
 
-pushd "$src_dir/java_riru" || exit
-rm -fr out
-chmod +x ./gradlew
-./gradlew "assemble$build_mode"
-unzip "$src_dir/java_riru/app/build/outputs/apk/release/app-release.apk" classes.dex
-mv classes.dex "$tmp_dir/classes.dex"
-popd || exit
+version="$(grep '^version=' "$src_dir/module.prop"  | cut -d= -f2)"
+sha256sum "$tmp_dir/classes.dex" | cut -d' ' -f1 | tr -d '\n' > "$tmp_dir/classes.dex.sha256sum"
+sha256sum "$tmp_dir/zygisk_classes.dex" | cut -d' ' -f1 | tr -d '\n' > "$tmp_dir/zygisk_classes.dex.sha256sum"
 
-pushd "$src_dir/java_zygisk" || exit
-rm -fr out
-chmod +x ./gradlew
-./gradlew "assemble$build_mode"
-unzip "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk" classes.dex
-mv classes.dex "$tmp_dir/zygisk_classes.dex"
-popd || exit
-
-pushd "$zy_dir/" || exit
-mkdir wsfn
-mkdir sfn
-wget -P "./wsfn" https://github.com/kdrag0n/safetynet-fix/releases/download/v2.4.0/safetynet-fix-v2.4.0.zip
-unzip "./wsfn/safetynet-fix-v2.4.0.zip" -d "./sfn"
-mv "./sfn/zygisk" "$tmp_dir/zygisk/"
-sha256sum "$tmp_dir/zygisk/arm64-v8a.so" | cut -d' ' -f1 | tr -d '\n' > arm64-v8a.so.sha256sum
-sha256sum "$tmp_dir/zygisk/armeabi-v7a.so" | cut -d' ' -f1 | tr -d '\n' > armeabi-v7a.so.sha256sum
-sha256sum "$tmp_dir/zygisk/x86.so" | cut -d' ' -f1 | tr -d '\n' > x86.so.sha256sum
-sha256sum "$tmp_dir/zygisk/x86_64.so" | cut -d' ' -f1 | tr -d '\n' > x86_64.so.sha256sum
-popd || exit
-
-unzip "$src_dir/riru/out/safetynet-fix-"*.zip
-
-rm -f "$src_dir/safetynet-fix-v"*.zip
-rm .gitattributes
-version="$(grep '^version=' module.prop  | cut -d= -f2)"
-
-sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
-sha256sum zygisk_classes.dex | cut -d' ' -f1 | tr -d '\n' > zygisk_classes.dex.sha256sum
-
-zip -r9 "$src_dir/safetynet-fix-$version.zip" .
+zip -r9 "$src_dir/safetynet-fix-$version.zip" "$tmp_dir"/*
