@@ -40,7 +40,7 @@ class ProxyKeyStoreSpi private constructor(
     override fun engineGetCertificateChain(alias: String?): Array<Certificate>? {
         logDebug("Proxy key store: get certificate chain")
 
-        if (isCallerSafetyNetjukmisael()) {
+        if (isCallerSafetyNet()) {
             logDebug("Blocking call")
             throw UnsupportedOperationException()
         } else {
