@@ -26,7 +26,7 @@ pushd "$src_dir/java_riru"
 rm -fr out
 chmod +x ./gradlew
 ./gradlew "assemble$build_mode"
-unzip "./app/build/outputs/apk/release/app-release.apk" classes.dex
+unzip "$src_dir/java_riru/app/build/outputs/apk/release/app-release.apk" classes.dex
 mv classes.dex "$tmp_dir/classes.dex
 popd
 
