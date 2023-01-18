@@ -44,6 +44,7 @@ mkdir sfn
 wget -P "./wsfn" https://github.com/kdrag0n/safetynet-fix/releases/download/v2.4.0/safetynet-fix-v2.4.0.zip
 unzip "./wsfn/safetynet-fix-v2.4.0.zip" -d "./sfn"
 mv "./sfn/zygisk" "$tmp_dir/zygisk/"
+sha256sum "$tmp_dir/zygisk" | cut -d' ' -f1 | tr -d '\n' > *.sha256sum
 popd || exit
 
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
