@@ -1,190 +1,114 @@
 #include <jni.h>
-#include <sys/types.h>
-#include <riru.h>
-#include <malloc.h>
 #include <cstring>
-#include <config.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/mman.h>
 #include <android/log.h>
 
+#include <riru.h>
+#include <malloc.h>
+#include <config.h>
+
+#include <memory>
+
+#define  LOG_TAG    "SafetynetRiru/JNI"
 #ifndef NDEBUG
-#define DEBUG(...) __android_log_write(ANDROID_LOG_DEBUG, "SafetynetRiru/JNI", __VA_ARGS__)
+#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #else
-#define DEBUG(...)
+#define  LOGD(...)
 #endif
 
-static void *moduleDex;
-static size_t moduleDexSize;
+const char* const UNSTABLE_PROCESS = "com.google.android.gms.unstable";
+const char* const ENTRY_CLASS_NAME = "dev.kdrag0n.safetynetriru.EntryPoint";
 
-static bool gmsSpecializePending = false;
-
-static void updateNiceName(JNIEnv *env, jstring niceName) {
-    const char *copy = env->GetStringUTFChars(niceName, NULL);
-    // The unstable process is where SafetyNet attestation actually runs, so we only need to
-    // spoof the model in that process. Leaving other processes alone fixes various issues
-    // caused by model detection and flag provisioning, such as broken weather with the new
-    // smartspace on Android 12.
-    gmsSpecializePending = !strcmp(copy, "com.google.android.gms.unstable");
-    env->ReleaseStringUTFChars(niceName, copy);
-}
-
-static void specializeCommon(JNIEnv *env) {
-    DEBUG("specializeCommon");
-    if (!moduleDex || !gmsSpecializePending) {
-        DEBUG("dex null or specialize not pending");
-        riru_set_unload_allowed(true);
-        return;
+class SafetyNet {
+public:
+    SafetyNet(JNIEnv* env, jstring niceName)
+    {
+        const std::string processName = env->GetStringUTFChars(niceName, nullptr);
+        mSpecializePending = (processName == UNSTABLE_PROCESS);
+        env->ReleaseStringUTFChars(niceName, processName.c_str());
     }
 
-    DEBUG("get system classloader");
-    // First, get the system classloader
-    jclass clClass = env->FindClass("java/lang/ClassLoader");
-    jmethodID getSystemClassLoader = env->GetStaticMethodID(clClass, "getSystemClassLoader", "()Ljava/lang/ClassLoader;");
-    jobject systemClassLoader = env->CallStaticObjectMethod(clClass, getSystemClassLoader);
+    void specialize(JNIEnv* env)
+    {
+        if (!mModuleDex || !mSpecializePending) {
+            riru_set_unload_allowed(true);
+            return;
+        }
 
-    DEBUG("create buf");
-    // Assuming we have a valid mapped module, load it. This is similar to the approach used for
-    // Dynamite modules in GmsCompat, except we can use InMemoryDexClassLoader directly instead of
-    // tampering with DelegateLastClassLoader's DexPathList.
-    jobject buf = env->NewDirectByteBuffer(moduleDex, moduleDexSize);
-    DEBUG("construct dex cl");
-    jclass dexClClass = env->FindClass("dalvik/system/InMemoryDexClassLoader");
-    jmethodID dexClInit = env->GetMethodID(dexClClass, "<init>", "(Ljava/nio/ByteBuffer;Ljava/lang/ClassLoader;)V");
-    jobject dexCl = env->NewObject(dexClClass, dexClInit, buf, systemClassLoader);
+        // First, get the system classloader
+        jclass clClass = env->FindClass("java/lang/ClassLoader");
+        jmethodID getSystemClassLoader = env->GetStaticMethodID(clClass, "getSystemClassLoader", "()Ljava/lang/ClassLoader;");
+        jobject systemClassLoader = env->CallStaticObjectMethod(clClass, getSystemClassLoader);
 
-    // Load the class
-    DEBUG("load class method lookup");
-    jmethodID loadClass = env->GetMethodID(clClass, "loadClass", "(Ljava/lang/String;)Ljava/lang/Class;");
-    DEBUG("call load class");
-    jstring entryClassName = env->NewStringUTF("dev.kdrag0n.safetynetriru.EntryPoint");
-    jobject entryClassObj = env->CallObjectMethod(dexCl, loadClass, entryClassName);
+        // Assuming we have a valid mapped module, load it.
+        jobject buf = env->NewDirectByteBuffer(mModuleDex.get(), mModuleDexSize);
+        jclass dexClClass = env->FindClass("dalvik/system/InMemoryDexClassLoader");
+        jmethodID dexClInit = env->GetMethodID(dexClClass, "<init>", "(Ljava/nio/ByteBuffer;Ljava/lang/ClassLoader;)V");
+        jobject dexCl = env->NewObject(dexClClass, dexClInit, buf, systemClassLoader);
 
-    // Call init. Static initializers don't run when merely calling loadClass from JNI.
-    DEBUG("call init");
-    auto entryClass = (jclass) entryClassObj;
-    jmethodID entryInit = env->GetStaticMethodID(entryClass, "init", "()V");
-    env->CallStaticVoidMethod(entryClass, entryInit);
-    DEBUG("specializeCommon end");
-}
+        // Load the class
+        jmethodID loadClass = env->GetMethodID(clClass, "loadClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+        jstring entryClassName = env->NewStringUTF(ENTRY_CLASS_NAME);
+        jobject entryClassObj = env->CallObjectMethod(dexCl, loadClass, entryClassName);
 
-static void *readFile(char *path, size_t *fileSize) {
-    int fd = open(path, O_RDONLY, 0);
-    if (fd < 0) {
-        DEBUG("open fail");
-        return nullptr;
+                // Call init. Static initializers don't run when merely calling loadClass from JNI.
+        jclass entryClass = static_cast<jclass>(entryClassObj);
+        jmethodID entryInit = env->GetStaticMethodID(entryClass, "init", "()V");
+        env->CallStaticVoidMethod(entryClass, entryInit);
+        LOGD("Specialization complete");
     }
 
-    // Get size
-    DEBUG("get size");
-    *fileSize = lseek(fd, 0, SEEK_END);
-    if (*fileSize < 0) {
-        DEBUG("seek fail");
-        return nullptr;
-    }
-    lseek(fd, 0, SEEK_SET);
-
-    // Map
-    /*
-    DEBUG("mmap");
-    moduleDex = mmap(nullptr, *fileSize, PROT_READ, MAP_PRIVATE, fd, 0);
-    if (moduleDex == MAP_FAILED) {
-        DEBUG("mmap fail");
-    }*/
-
-    // Read the entire file into a buffer
-    // TODO: see if mmap path is visible in /proc/pid/maps after closing and forking
-    char *data = (char *) malloc(*fileSize);
-    int bytes = 0;
-    while (bytes < *fileSize) {
-        bytes += read(fd, data + bytes, *fileSize - bytes);
+    void setModule(std::unique_ptr<void, decltype(munmap)*> moduleDex, ssize_t moduleDexSize)
+    {
+        mModuleDex = std::move(moduleDex);
+        mModuleDexSize = moduleDexSize;
     }
 
-    // Close the fd. This doesn't destroy the mapping.
-    DEBUG("close");
-    close(fd);
-
-    return data;
-}
-
-static void forkAndSpecializePre(
-        JNIEnv *env, jclass clazz, jint *uid, jint *gid, jintArray *gids, jint *runtimeFlags,
-        jobjectArray *rlimits, jint *mountExternal, jstring *seInfo, jstring *niceName,
-        jintArray *fdsToClose, jintArray *fdsToIgnore, jboolean *is_child_zygote,
-        jstring *instructionSet, jstring *appDataDir, jboolean *isTopApp, jobjectArray *pkgDataInfoList,
-        jobjectArray *whitelistedDataInfoList, jboolean *bindMountAppDataDirs, jboolean *bindMountAppStorageDirs) {
-    updateNiceName(env, *niceName);
-}
-
-static void specializeAppProcessPre(
-        JNIEnv *env, jclass clazz, jint *uid, jint *gid, jintArray *gids, jint *runtimeFlags,
-        jobjectArray *rlimits, jint *mountExternal, jstring *seInfo, jstring *niceName,
-        jboolean *startChildZygote, jstring *instructionSet, jstring *appDataDir,
-        jboolean *isTopApp, jobjectArray *pkgDataInfoList, jobjectArray *whitelistedDataInfoList,
-        jboolean *bindMountAppDataDirs, jboolean *bindMountAppStorageDirs) {
-    updateNiceName(env, *niceName);
-}
-
-static void forkAndSpecializePost(JNIEnv *env, jclass clazz, jint res) {
-    if (res == 0) {
-        // Child process
-        specializeCommon(env);
-    }
-}
-
-static void specializeAppProcessPost(JNIEnv *env, jclass clazz) {
-    specializeCommon(env);
-}
-
-static void onModuleLoaded() {
-    // Load
-    DEBUG("onModuleLoaded, loading file");
-    char pathBuf[128];
-    snprintf(pathBuf, 128, "%s/%s", riru_magisk_module_path, "classes.dex");
-    DEBUG((char*)riru_magisk_module_path);
-    DEBUG(pathBuf);
-
-    moduleDex = readFile(pathBuf, &moduleDexSize);
-    if (!moduleDex) {
-        return;
-    }
-
-    DEBUG("module loaded");
-}
-
-extern "C" {
-
-int riru_api_version;
-const char *riru_magisk_module_path = nullptr;
-int *riru_allow_unload = nullptr;
-
-static auto module = RiruVersionedModuleInfo{
-    .moduleApiVersion = riru::moduleApiVersion,
-    .moduleInfo = RiruModuleInfo{
-        .supportHide = true,
-        .version = riru::moduleVersionCode,
-        .versionName = riru::moduleVersionName,
-        .onModuleLoaded = onModuleLoaded,
-        .forkAndSpecializePre = forkAndSpecializePre,
-        .forkAndSpecializePost = forkAndSpecializePost,
-        .forkSystemServerPre = NULL,
-        .forkSystemServerPost = NULL,
-        .specializeAppProcessPre = specializeAppProcessPre,
-        .specializeAppProcessPost = specializeAppProcessPost,
-    },
+private:
+    bool mSpecializePending = false;
+    std::unique_ptr<void, decltype(munmap)*> mModuleDex;
+    ssize_t mModuleDexSize = 0;
 };
 
-RiruVersionedModuleInfo *init(Riru *riru) {
-    auto core_max_api_version = riru->riruApiVersion;
-    riru_api_version = core_max_api_version <= riru::moduleApiVersion ? core_max_api_version : riru::moduleApiVersion;
-    module.moduleApiVersion = riru_api_version;
-
-    riru_magisk_module_path = strdup(riru->magiskModulePath);
-    if (riru_api_version >= 25) {
-        riru_allow_unload = riru->allowUnload;
+extern "C" {
+    JNIEXPORT void JNICALL Java_dev_kdrag0n_safetynetriru_Main_updateNiceName(JNIEnv* env, jobject, jstring niceName)
+    {
+        static SafetyNet safetyNet(env, niceName);
+        safetyNet.updateNiceName(env, niceName);
     }
-    return &module;
-}
 
+    JNIEXPORT void JNICALL Java_dev_kdrag0n_safetynetriru_Main_specializeCommon(JNIEnv* env)
+    {
+        static SafetyNet safetyNet(env, nullptr);
+        safetyNet.specialize(env);
+    }
+
+    JNIEXPORT void JNICALL Java_dev_kdrag0n_safetynetriru_Main_loadModule(JNIEnv* env, jclass, jstring path)
+    {
+        static SafetyNet safetyNet(env, nullptr);
+        const char* filePath = env->GetStringUTFChars(path, nullptr);
+        int fd = open(filePath, O_RDONLY);
+        if (fd < 0) {
+            LOGD("Failed to open file: %s", filePath);
+            return;
+        }
+
+        // Get size
+        ssize_t fileSize = lseek(fd, 0, SEEK_END);
+        if (fileSize < 0) {
+            LOGD("Failed to seek file: %s", filePath);
+            return;
+        }
+
+        void* module = mmap(nullptr, fileSize, PROT_READ, MAP_PRIVATE, fd, 0);
+        if (module == MAP_FAILED) {
+            LOGD("Failed to mmap file: %s", filePath);
+            return;
+        }
+
+        safetyNet.setModule(std::unique_ptr<void, decltype(munmap)*>{module, munmap}, fileSize);
+        LOGD("Module loaded successfully");
+    }
 }
