@@ -20,11 +20,11 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class dev.kdrag0n.safetynetfixjukmisael.EntryPoint {
+-keep class dev.kdrag0n.safetynetfix.EntryPoint {
     public static void init();
 }
 
--keepclassmembers class dev.kdrag0n.safetynetfixjukmisael.proxy.ProxyKeyStoreSpi {
+-keepclassmembers class dev.kdrag0n.safetynetfix.proxy.ProxyKeyStoreSpi {
     public <init>(...);
 }
 
