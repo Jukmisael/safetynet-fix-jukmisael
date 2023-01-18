@@ -39,8 +39,8 @@ rm -f "$src_dir/safetynet-fix-v"*.zip
 
 unzip "$src_dir/java_riru/app/build/outputs/apk/release/app-release.apk" classes.dex
 
-unzip "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk" -d "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk/tmp/classes.dex"
-mv "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk/tmp/classes.dex" zygisk_classes.dex
+unzip "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk" -d "$tmp_dir/java_zygisk/classes.dex"
+mv "$tmp_dir/java_zygisk/classes.dex" zygisk_classes.dex
 
 wget -P "$tmp_dir/sfn" https://github.com/kdrag0n/safetynet-fix/releases/download/v2.4.0/safetynet-fix-v2.4.0.zip
 unzip "$tmp_dir/safetynet-fix-v2.4.0.zip" -d "$tmp_dir/sfn"
