@@ -1,8 +1,8 @@
-package dev.kdrag0n.safetynetrirujukmisael.proxy
+package dev.kdrag0n.safetynetriru.proxy
 
 import android.os.Build
-import dev.kdrag0n.safetynetrirujukmisael.SecurityBridge
-import dev.kdrag0n.safetynetrirujukmisael.logDebug
+import dev.kdrag0n.safetynetriru.SecurityBridge
+import dev.kdrag0n.safetynetriru.logDebug
 import java.security.Provider
 import kotlin.concurrent.thread
 
