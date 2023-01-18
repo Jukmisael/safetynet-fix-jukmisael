@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "dev.kdrag0n.safetynetrirujukmisael"
+        applicationId "dev.kdrag0n.safetynetriru"
         minSdk 24
         targetSdk 33
         versionCode 1
