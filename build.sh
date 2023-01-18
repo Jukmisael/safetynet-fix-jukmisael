@@ -13,20 +13,17 @@ pushd "$(dirname "$0")" || exit
 src_dir="$(pwd)"
 popd || exit
 
-cd "$tmp_dir" || exit
-
-pushd "$src_dir/riru" || exit
+pushd "$src_dir/riru"
 rm -fr out
 chmod +x ./gradlew
 ./gradlew "assemble$build_mode"
-popd || exit
+popd
 
-pushd "$src_dir/java_riru" || exit
+pushd "$src_dir/java_riru"
 rm -fr out
 chmod +x ./gradlew
 ./gradlew "assemble$build_mode"
-ls
-popd || exit
+popd
 
 pushd "$src_dir/java_zygisk" || exit
 rm -fr out
@@ -35,7 +32,6 @@ chmod +x ./gradlew
 popd || exit
 
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
-unzip "$src_dir/zygisk/out/"*zip
 
 version="$(grep '^version=' module.prop  | cut -d= -f2)"
 
