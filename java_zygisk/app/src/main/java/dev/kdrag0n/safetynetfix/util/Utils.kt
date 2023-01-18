@@ -1,10 +1,10 @@
-package dev.kdrag0n.safetynetfixjukmisael
+package dev.kdrag0n.safetynetfix
 
 import android.app.Application
 import android.util.Log
 
 private const val DEBUG = true
-private const val TAG = "SNFixJ/Java"
+private const val TAG = "SNFix/Java"
 
 internal fun <T> Any.get(name: String) = this::class.java.getDeclaredField(name).let { field ->
     field.isAccessible = true
