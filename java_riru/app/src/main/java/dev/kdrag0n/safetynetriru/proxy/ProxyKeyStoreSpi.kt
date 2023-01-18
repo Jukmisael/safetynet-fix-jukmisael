@@ -1,6 +1,6 @@
-package dev.kdrag0n.safetynetrirujukmisael.proxy
+package dev.kdrag0n.safetynetriru.proxy
 
-import dev.kdrag0n.safetynetrirujukmisael.logDebug
+import dev.kdrag0n.safetynetriru.logDebug
 import java.io.InputStream
 import java.io.OutputStream
 import java.security.Key
