@@ -1,4 +1,4 @@
-package dev.kdrag0n.safetynetrirujukmisael
+package dev.kdrag0n.safetynetriru
 
 import android.os.Build
 
