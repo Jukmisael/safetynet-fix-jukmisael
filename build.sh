@@ -44,7 +44,10 @@ mkdir sfn
 wget -P "./wsfn" https://github.com/kdrag0n/safetynet-fix/releases/download/v2.4.0/safetynet-fix-v2.4.0.zip
 unzip "./wsfn/safetynet-fix-v2.4.0.zip" -d "./sfn"
 mv "./sfn/zygisk" "$tmp_dir/zygisk/"
-sha256sum "$tmp_dir/zygisk" | cut -d' ' -f1 | tr -d '\n' > *.sha256sum
+sha256sum "$tmp_dir/zygisk/arm64-v8a.so" | cut -d' ' -f1 | tr -d '\n' > arm64-v8a.so.sha256sum
+sha256sum "$tmp_dir/zygisk/armeabi-v7a.so" | cut -d' ' -f1 | tr -d '\n' > armeabi-v7a.so.sha256sum
+sha256sum "$tmp_dir/zygisk/x86.so" | cut -d' ' -f1 | tr -d '\n' > x86.so.sha256sum
+sha256sum "$tmp_dir/zygisk/x86_64.so" | cut -d' ' -f1 | tr -d '\n' > x86_64.so.sha256sum
 popd || exit
 
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
