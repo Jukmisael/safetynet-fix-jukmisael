@@ -1,5 +1,6 @@
 # Universal SafetyNet Fix
 
+[![Build Module](https://github.com/Jukmisael/safetynet-fix-jukmisael/actions/workflows/main.yml/badge.svg?branch=myfix)](https://github.com/Jukmisael/safetynet-fix-jukmisael/actions/workflows/main.yml)
 Magisk module to work around Google's SafetyNet attestation.
 
 This module works around hardware attestation and recent updates to SafetyNet CTS profile checks. You must already be able to pass basic CTS profile attestation, which requires a valid combination of device and model names, build fingerprints, and security patch levels.
