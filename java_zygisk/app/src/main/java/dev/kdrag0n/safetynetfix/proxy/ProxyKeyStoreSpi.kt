@@ -1,6 +1,6 @@
-package dev.kdrag0n.safetynetfixjukmisael.proxy
+package dev.kdrag0n.safetynetfix.proxy
 
-import dev.kdrag0n.safetynetfixjukmisael.logDebug
+import dev.kdrag0n.safetynetfix.logDebug
 import java.io.InputStream
 import java.io.OutputStream
 import java.security.Key
@@ -21,7 +21,7 @@ class ProxyKeyStoreSpi private constructor(
     // Avoid breaking other, legitimate uses of key attestation in Google Play Services, e.g.
     //   - com.google.android.gms.auth.cryptauth.register.ReEnrollmentChimeraService
     //   - tk_trace.129-RegisterForKeyPairOperation
-    private fun isCallerSafetyNetjukmisael() = Thread.currentThread().stackTrace.any {
+    private fun isCallerSafetyNet() = Thread.currentThread().stackTrace.any {
         // a.a.engineGetCertificateChain(Unknown Source:15)
         // java.security.KeyStore.getCertificateChain(KeyStore.java:1087)
         // com.google.ccc.abuse.droidguard.DroidGuard.initNative(Native Method)
