@@ -29,6 +29,7 @@ chmod +x ./gradlew
 unzip "$src_dir/java_riru/app/build/outputs/apk/release/app-release.apk" classes.dex
 mv classes.dex "$tmp_dir/classes.dex"
 popd || exit
+
 pushd "$src_dir/java_zygisk" || exit
 rm -fr out
 chmod +x ./gradlew
@@ -36,6 +37,7 @@ chmod +x ./gradlew
 unzip "$src_dir/java_zygisk/app/build/outputs/apk/release/app-release.apk" classes.dex
 mv classes.dex "$tmp_dir/zygisk_classes.dex"
 popd || exit
+
 pushd "$zy_dir/" || exit
 mkdir wsfn
 mkdir sfn
@@ -43,9 +45,13 @@ wget -P "./wsfn" https://github.com/kdrag0n/safetynet-fix/releases/download/v2.4
 unzip "./wsfn/safetynet-fix-v2.4.0.zip" -d "./sfn"
 mv "./sfn/zygisk" "$tmp_dir/zygisk/"
 popd || exit
+
 unzip "$src_dir/riru/out/safetynet-fix-"*.zip
+
 rm -f "$src_dir/safetynet-fix-v"*.zip
 version="$(grep '^version=' module.prop  | cut -d= -f2)"
+
 sha256sum classes.dex | cut -d' ' -f1 | tr -d '\n' > classes.dex.sha256sum
 sha256sum zygisk_classes.dex | cut -d' ' -f1 | tr -d '\n' > zygisk_classes.dex.sha256sum
+
 zip -r9 "$src_dir/safetynet-fix-$version.zip" .
