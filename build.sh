@@ -28,12 +28,6 @@ chmod +x ./gradlew
 ls
 popd || exit
 
-pushd "$src_dir/zygisk" || exit
-rm -fr out
-chmod +x ./gradlew
-./gradlew "assemble$build_mode"
-popd || exit
-
 pushd "$src_dir/java_zygisk" || exit
 rm -fr out
 chmod +x ./gradlew
