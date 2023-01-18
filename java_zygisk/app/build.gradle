@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "dev.kdrag0n.safetynetfixjukmisael"
+        applicationId "dev.kdrag0n.safetynetfix"
         minSdk 24
         targetSdk 33
         versionCode 1
