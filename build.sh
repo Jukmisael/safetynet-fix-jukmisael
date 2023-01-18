@@ -35,4 +35,4 @@ version="$(grep '^version=' "$tmp_dir/module.prop"  | cut -d= -f2)"
 sha256sum "$tmp_dir/classes.dex" | cut -d' ' -f1 | tr -d '\n' > "$tmp_dir/classes.dex.sha256sum"
 sha256sum "$tmp_dir/zygisk_classes.dex" | cut -d' ' -f1 | tr -d '\n' > "$tmp_dir/zygisk_classes.dex.sha256sum"
 
-zip -r9 "$src_dir/safetynet-fix-$version.zip" "$tmp_dir"/*
+zip -r9 "$src_dir/safetynet-fix-$version.zip" "$tmp_dir"
